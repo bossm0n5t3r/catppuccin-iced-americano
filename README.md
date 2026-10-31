@@ -28,31 +28,8 @@ Blue is `#1D62ED`; Mauve is `#7E0B97`; secondary text is `#454D65`.
 ## Maintenance
 
 Kotlin tooling uses the JDK configured in `gradle/libs.versions.toml` and the
-Gradle Wrapper. Ghostty installation uses Bash (macOS/Linux) and needs no JDK,
-Gradle or Python. Ghostty itself needs only the generated theme file.
-
-### Python migration reference
-
-Python 3.15 and [uv](https://docs.astral.sh/uv/) remain temporarily for reference
-comparisons and the existing tests. These tools have no runtime dependencies;
-Ruff is their only development dependency.
-
-```sh
-# Regenerate from the palette; never edit the theme by hand.
-uv run python -m scripts.generate_ghostty
-
-# Check the generated theme and calculate contrast and CVD estimates.
-uv run python -m scripts.generate_ghostty --check
-uv run python -m scripts.validate palette/iced-americano.json
-uv run python -m scripts.cvd
-
-# Run tests and Python style checks.
-uv run python -m unittest discover -s tests -v
-uv run ruff check .
-uv run ruff format --check .
-```
-
-Generation does not install anything or change user settings.
+Gradle Wrapper. Ghostty installation uses Bash (macOS/Linux) and standard system
+utilities, without launching Gradle or a JVM. Ghostty itself needs only the generated theme file.
 
 ### Kotlin tooling
 
@@ -99,7 +76,6 @@ failures, and 2 for invalid usage, malformed schema/JSON or unreadable files.
 Generation/check exits are 0 for success, 1 for missing/stale output in check mode,
 and 2 for invalid input or I/O errors.
 Contrast uses the unrounded 4.5:1 threshold; diagnostic pairs do not fail validation.
-Python remains temporarily as a migration reference until the migration is complete.
 
 Licensed under the [MIT License](LICENSE).
 See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.

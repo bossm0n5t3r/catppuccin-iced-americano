@@ -6,7 +6,7 @@ Generated from `palette/iced-americano.json`; no CVD accessibility certification
 ## Install
 
 From the repository root, install the theme and select it (Bash, macOS/Linux;
-no JDK, Gradle or Python required):
+no JDK or Gradle required):
 
 ```sh
 ./ports/ghostty/install.sh
@@ -32,7 +32,7 @@ If none exists, it creates XDG `config.ghostty`. To choose a specific file:
 Config symlinks are preserved; their target file is updated.
 Explicit user color settings still override the theme.
 When a config update is needed, CRLF/CR line endings are normalized to LF,
-matching the previous Python installer. An already-correct config is not rewritten.
+and an already-correct config is not rewritten.
 Normal Gradle build/check tasks never install into user settings; installer tests
 use isolated temporary directories.
 
@@ -56,8 +56,6 @@ Override generation paths with `-Ppalette=PATH` and `-Poutput=PATH`.
 The Kotlin CLI accepts `generate-ghostty --palette PATH --output PATH --check`
 through `./gradlew :tooling:run --args="generate-ghostty ..."` as well.
 Freshness checks never write files or create directories; missing/stale output fails.
-The legacy Python attribution comment in the generated file is temporarily retained
-to prove byte-for-byte migration parity; Python itself is not used for generation.
 Check exits: 0 synchronized, 1 missing/stale, 2 invalid input or I/O error.
 
 ## Mapping and limits

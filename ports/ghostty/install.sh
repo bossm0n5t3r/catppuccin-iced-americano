@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install the generated theme without requiring Java, Gradle, or Python.
+# Install the generated theme using Bash and standard system utilities.
 set -euo pipefail
 
 fail() {
@@ -109,7 +109,7 @@ if [[ -e $config ]]; then
   original=$(cat -- "$config" && printf '\001')
   original=${original%$'\001'}
 fi
-# Match Python read_text's universal-newline behavior. Unchanged files are not rewritten.
+# Normalize CRLF/CR on reads; do not rewrite an already-correct config.
 original=${original//$'\r\n'/$'\n'}
 original=${original//$'\r'/$'\n'}
 remaining=$original

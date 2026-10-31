@@ -66,7 +66,7 @@ class GhosttyInstallerScriptTest {
     }
 
     @Test
-    fun handlesEmptyUnterminatedAndCrLfConfigLikePython() {
+    fun handlesEmptyUnterminatedAndMixedLineEndings() {
         val config = xdg.resolve("ghostty/config.ghostty")
         for ((before, expected) in
             listOf(
