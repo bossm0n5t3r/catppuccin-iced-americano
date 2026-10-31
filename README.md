@@ -27,11 +27,15 @@ Blue is `#1D62ED`; Mauve is `#7E0B97`; secondary text is `#454D65`.
 
 ## Maintenance
 
-Requires Python 3.15 and [uv](https://docs.astral.sh/uv/).
-The Python tools have no runtime dependencies; Ruff is their only development dependency.
-Ghostty needs only the generated `ports/ghostty/iced-americano` theme.
+Kotlin tooling uses the JDK configured in `gradle/libs.versions.toml` and the
+Gradle Wrapper. Ghostty installation uses Bash (macOS/Linux) and needs no JDK,
+Gradle or Python. Ghostty itself needs only the generated theme file.
 
-Run from the repository root:
+### Python migration reference
+
+Python 3.15 and [uv](https://docs.astral.sh/uv/) remain temporarily for reference
+comparisons and the existing tests. These tools have no runtime dependencies;
+Ruff is their only development dependency.
 
 ```sh
 # Regenerate from the palette; never edit the theme by hand.
@@ -53,7 +57,7 @@ Generation does not install anything or change user settings.
 ### Kotlin tooling
 
 The Gradle tooling module reads the shared palette and provides Kotlin contrast
-validation and CVD reports. JSON parsing uses kotlinx.serialization.
+validation, CVD reports and Ghostty theme generation. JSON parsing uses kotlinx.serialization.
 JDK toolchain, Kotlin plugin, JSON library and ktfmt plugin versions are managed in
 [`gradle/libs.versions.toml`](gradle/libs.versions.toml). The JDK entry controls
 the tooling compilation toolchain, not the JVM that launches Gradle.
@@ -71,6 +75,13 @@ Gradle Kotlin DSL scripts in the root project and tooling module.
 ./gradlew :tooling:validatePalette
 ./gradlew :tooling:reportCvd
 
+# Generate explicitly; check is read-only and also runs as part of build.
+./gradlew :tooling:generateGhostty
+./gradlew :tooling:checkGhostty
+
+# Install explicitly, without launching Gradle or a JVM.
+./ports/ghostty/install.sh
+
 # Override the palette path; relative paths are resolved from the repository root.
 ./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json
 
@@ -79,11 +90,16 @@ Gradle Kotlin DSL scripts in the root project and tooling module.
 ./gradlew :tooling:run --args="cvd"
 ```
 
-`:tooling:check` (and therefore `:tooling:build`) runs palette validation and tests.
-These commands do not generate themes or change user settings.
-CLI exit codes are 0 for success, 1 for palette token/HEX or required-contrast
+`:tooling:check` (and therefore `:tooling:build`) runs palette validation,
+Ghostty freshness checks and tests. It never regenerates stale/missing themes
+or installs into user settings. Installation is performed by explicitly running
+`ports/ghostty/install.sh`; see the [Ghostty instructions](ports/ghostty/README.md).
+Validation exit codes are 0 for success, 1 for palette token/HEX or required-contrast
 failures, and 2 for invalid usage, malformed schema/JSON or unreadable files.
+Generation/check exits are 0 for success, 1 for missing/stale output in check mode,
+and 2 for invalid input or I/O errors.
 Contrast uses the unrounded 4.5:1 threshold; diagnostic pairs do not fail validation.
+Python remains temporarily as a migration reference until the migration is complete.
 
 Licensed under the [MIT License](LICENSE).
 See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.

@@ -16,34 +16,43 @@ fun main(args: Array<String>) {
 }
 
 internal fun runCli(args: Array<String>, output: PrintWriter, error: PrintWriter): Int {
-    if (args.size !in 1..2 || (args[0] != "validate" && args[0] != "cvd")) {
-        error.println("Usage: tooling <validate|cvd> [PATH_TO_PALETTE_JSON]")
-        return 2
-    }
     return try {
-        val palette = readPalette(Path.of(args.getOrElse(1) { DEFAULT_PALETTE }))
-        when (args[0]) {
-            "validate" -> {
-                val result = validatePalette(palette)
-                output.printValidationReport(palette, result)
-                if (result.passes) 0 else 1
+        when (args.firstOrNull()) {
+            "validate",
+            "cvd" -> {
+                require(args.size in 1..2) {
+                    "Usage: tooling <validate|cvd> [PATH_TO_PALETTE_JSON]"
+                }
+                val palette = readPalette(Path.of(args.getOrElse(1) { DEFAULT_PALETTE }))
+                if (args[0] == "validate") {
+                    val result = validatePalette(palette)
+                    output.printValidationReport(palette, result)
+                    if (result.passes) 0 else 1
+                } else {
+                    output.printCvdReport(palette)
+                    0
+                }
             }
+            "generate-ghostty" -> runGhosttyGeneration(args, error)
             else -> {
-                output.printCvdReport(palette)
-                0
+                error.println(
+                    "Usage: tooling <validate|cvd> [PATH_TO_PALETTE_JSON]\n" +
+                        "       tooling generate-ghostty [--palette PATH] [--output PATH] [--check]"
+                )
+                2
             }
         }
     } catch (exception: PaletteValidationException) {
         error.println(exception.message)
         1
     } catch (exception: IOException) {
-        error.println("Cannot read palette: ${exception.message}")
+        error.println("I/O error: ${exception.message}")
         2
     } catch (exception: InvalidPathException) {
-        error.println("Invalid palette path: ${exception.message}")
+        error.println("Invalid path: ${exception.message}")
         2
     } catch (exception: IllegalArgumentException) {
-        error.println("Invalid palette: ${exception.message}")
+        error.println("Invalid input: ${exception.message}")
         2
     } finally {
         output.flush()

@@ -5,10 +5,11 @@ Generated from `palette/iced-americano.json`; no CVD accessibility certification
 
 ## Install
 
-From the repository root, install the theme and select it:
+From the repository root, install the theme and select it (Bash, macOS/Linux;
+no JDK, Gradle or Python required):
 
 ```sh
-uv run python -m scripts.install_ghostty
+./ports/ghostty/install.sh
 ```
 
 The installer creates a symlink at
@@ -24,12 +25,16 @@ then their macOS equivalents under
 If none exists, it creates XDG `config.ghostty`. To choose a specific file:
 
 ```sh
-uv run python -m scripts.install_ghostty \
+./ports/ghostty/install.sh \
   --config ~/code/dotfiles/ghostty/.config/ghostty/config
 ```
 
 Config symlinks are preserved; their target file is updated.
 Explicit user color settings still override the theme.
+When a config update is needed, CRLF/CR line endings are normalized to LF,
+matching the previous Python installer. An already-correct config is not rewritten.
+Normal Gradle build/check tasks never install into user settings; installer tests
+use isolated temporary directories.
 
 Reload: **Cmd+Shift+,** on macOS or **Ctrl+Shift+,** on Linux (default bindings),
 or your configured reload shortcut.
@@ -40,14 +45,19 @@ Uninstall by removing the `theme` line and the installed symlink.
 From the repository root:
 
 ```sh
-uv run python -m scripts.generate_ghostty
-uv run python -m scripts.generate_ghostty --check
+./gradlew :tooling:generateGhostty
+./gradlew :tooling:checkGhostty
 ghostty +validate-config --config-file="$PWD/ports/ghostty/iced-americano"
 ```
 
 On macOS the executable may be `/Applications/Ghostty.app/Contents/MacOS/ghostty`.
 Do not add `--config-default-files=false` to `+validate-config`.
-The generator accepts `--palette PATH`, `--output PATH`, and `--check`.
+Override generation paths with `-Ppalette=PATH` and `-Poutput=PATH`.
+The Kotlin CLI accepts `generate-ghostty --palette PATH --output PATH --check`
+through `./gradlew :tooling:run --args="generate-ghostty ..."` as well.
+Freshness checks never write files or create directories; missing/stale output fails.
+The legacy Python attribution comment in the generated file is temporarily retained
+to prove byte-for-byte migration parity; Python itself is not used for generation.
 Check exits: 0 synchronized, 1 missing/stale, 2 invalid input or I/O error.
 
 ## Mapping and limits
