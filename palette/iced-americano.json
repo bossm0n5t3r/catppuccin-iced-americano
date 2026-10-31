@@ -1,0 +1,81 @@
+{
+  "name": "Iced Americano",
+  "version": "0.1.0",
+  "status": "experimental",
+  "base_palette": "Catppuccin Latte",
+  "source": "https://catppuccin.com/palette/",
+  "design": "Light Latte surfaces with blue-black typography, bright blue accents, and a stronger secondary text hierarchy. This palette has not undergone structured evaluation with color-vision-deficient users.",
+  "colors": {
+    "rosewater": "#DC8A78",
+    "flamingo": "#DD7878",
+    "pink": "#EA76CB",
+    "mauve": "#7E0B97",
+    "red": "#D20F39",
+    "maroon": "#E64553",
+    "peach": "#FE640B",
+    "yellow": "#DF8E1D",
+    "green": "#006F80",
+    "teal": "#179299",
+    "sky": "#04A5E5",
+    "sapphire": "#209FB5",
+    "blue": "#1D62ED",
+    "lavender": "#7287FD",
+    "text": "#25334D",
+    "subtext1": "#454D65",
+    "subtext0": "#686B81",
+    "overlay2": "#7C7F93",
+    "overlay1": "#8C8FA1",
+    "overlay0": "#9CA0B0",
+    "surface2": "#ACB0BE",
+    "surface1": "#BCC0CC",
+    "surface0": "#CCD0DA",
+    "base": "#EFF1F5",
+    "mantle": "#E6E9EF",
+    "crust": "#DCE0E8"
+  },
+  "semantics": {
+    "primary": {
+      "foreground": "blue",
+      "cue": "Recommended: explicit information label; link affordances must be provided by the application"
+    },
+    "error": {
+      "foreground": "red",
+      "cue": "Recommended: explicit error label and bold text, provided by the application"
+    },
+    "warning": {
+      "foreground": "text",
+      "accent": "yellow",
+      "cue": "Recommended: warning icon and explicit label, provided by the application"
+    },
+    "success": {
+      "foreground": "green",
+      "cue": "Recommended: check icon and explicit success label, provided by the application"
+    }
+  },
+  "changes_from_latte": {
+    "blue": {
+      "from": "#1E66F5",
+      "reason": "Bright blue accent with WCAG AA normal-text contrast on Base; other backgrounds require separate review"
+    },
+    "mauve": {
+      "from": "#8839EF",
+      "reason": "Dark purple with greater simulated distance from blue and higher text contrast; green and red pairings require usage-specific review"
+    },
+    "text": {
+      "from": "#4C4F69",
+      "reason": "Blue-black foreground for primary text"
+    },
+    "green": {
+      "from": "#40A02B",
+      "reason": "Blue-teal success accent intended for use with explicit non-color cues"
+    },
+    "subtext1": {
+      "from": "#5C5F77",
+      "reason": "Strengthen the secondary text hierarchy"
+    },
+    "subtext0": {
+      "from": "#6C6F85",
+      "reason": "Slightly stronger secondary text contrast"
+    }
+  }
+}
