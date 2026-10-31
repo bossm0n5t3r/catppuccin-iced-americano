@@ -50,5 +50,26 @@ uv run ruff format --check .
 
 Generation does not install anything or change user settings.
 
+### Kotlin tooling
+
+The Gradle tooling module is being prepared for the Python migration.
+The tooling application has no external runtime dependencies.
+JDK toolchain, Kotlin plugin and ktfmt plugin versions are managed in
+[`gradle/libs.versions.toml`](gradle/libs.versions.toml). The JDK entry controls
+the tooling compilation toolchain, not the JVM that launches Gradle.
+The Foojay settings plugin version remains in `settings.gradle.kts`.
+
+ktfmt uses KotlinLang style (four-space indentation) for Kotlin sources and
+Gradle Kotlin DSL scripts in the root project and tooling module.
+
+```sh
+# Format first, then check in a separate invocation.
+./gradlew ktfmtFormat
+./gradlew ktfmtCheck :tooling:build
+
+# Run the current sample application.
+./gradlew :tooling:run
+```
+
 Licensed under the [MIT License](LICENSE).
 See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.
