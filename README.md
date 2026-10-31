@@ -28,7 +28,7 @@ Blue is `#1D62ED`; Mauve is `#7E0B97`; secondary text is `#454D65`.
 ## Maintenance
 
 Requires Python 3.15 and [uv](https://docs.astral.sh/uv/).
-There are no runtime dependencies; Ruff is the only development dependency.
+The Python tools have no runtime dependencies; Ruff is their only development dependency.
 Ghostty needs only the generated `ports/ghostty/iced-americano` theme.
 
 Run from the repository root:
@@ -52,9 +52,9 @@ Generation does not install anything or change user settings.
 
 ### Kotlin tooling
 
-The Gradle tooling module is being prepared for the Python migration.
-The tooling application has no external runtime dependencies.
-JDK toolchain, Kotlin plugin and ktfmt plugin versions are managed in
+The Gradle tooling module reads the shared palette and provides Kotlin contrast
+validation and CVD reports. JSON parsing uses kotlinx.serialization.
+JDK toolchain, Kotlin plugin, JSON library and ktfmt plugin versions are managed in
 [`gradle/libs.versions.toml`](gradle/libs.versions.toml). The JDK entry controls
 the tooling compilation toolchain, not the JVM that launches Gradle.
 The Foojay settings plugin version remains in `settings.gradle.kts`.
@@ -67,9 +67,23 @@ Gradle Kotlin DSL scripts in the root project and tooling module.
 ./gradlew ktfmtFormat
 ./gradlew ktfmtCheck :tooling:build
 
-# Run the current sample application.
-./gradlew :tooling:run
+# Validate the palette and print the CVD report.
+./gradlew :tooling:validatePalette
+./gradlew :tooling:reportCvd
+
+# Override the palette path; relative paths are resolved from the repository root.
+./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json
+
+# Run the same commands through the CLI.
+./gradlew :tooling:run --args="validate palette/iced-americano.json"
+./gradlew :tooling:run --args="cvd"
 ```
+
+`:tooling:check` (and therefore `:tooling:build`) runs palette validation and tests.
+These commands do not generate themes or change user settings.
+CLI exit codes are 0 for success, 1 for palette token/HEX or required-contrast
+failures, and 2 for invalid usage, malformed schema/JSON or unreadable files.
+Contrast uses the unrounded 4.5:1 threshold; diagnostic pairs do not fail validation.
 
 Licensed under the [MIT License](LICENSE).
 See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.
