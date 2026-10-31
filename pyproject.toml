@@ -3,6 +3,7 @@ name = "catppuccin-iced-americano"
 version = "0.1.0"
 description = "An experimental unofficial Catppuccin Latte derivative"
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.15"
 dependencies = []
 

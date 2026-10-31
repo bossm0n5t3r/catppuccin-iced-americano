@@ -50,4 +50,5 @@ uv run ruff format --check .
 
 Generation does not install anything or change user settings.
 
-[Third-party notices](docs/THIRD_PARTY_NOTICES.md).
+Licensed under the [MIT License](LICENSE).
+See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.
