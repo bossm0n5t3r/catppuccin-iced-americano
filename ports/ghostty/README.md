@@ -5,35 +5,43 @@ Generated from `palette/iced-americano.json`; no CVD accessibility certification
 
 ## Install
 
-Add an absolute path to your existing Ghostty configuration:
-
-```ini
-theme = /ABSOLUTE/REPO/ports/ghostty/iced-americano
-```
-
-Alternatively, copy the theme into Ghostty's themes directory:
+From the repository root, install the theme and select it:
 
 ```sh
-mkdir -p "${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes"
-cp ports/ghostty/iced-americano "${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes/iced-americano"
+uv run python -m scripts.install_ghostty
 ```
 
-Then set `theme = iced-americano`. Recopy after regenerating.
-Configuration is normally `${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/config.ghostty`;
-macOS also supports `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`.
-Merge the theme line; do not replace existing configuration. Explicit user color
-settings override the theme. Nothing is installed or configured automatically.
+The installer creates a symlink at
+`${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes/iced-americano` pointing to this
+checkout, then sets `theme = iced-americano` without replacing other settings.
+Regenerated colors are available through the link; keep the checkout in place.
+Rerunning replaces an existing theme file or symlink, including broken links,
+and collapses active `theme` settings into one. It refuses to replace a directory.
 
-Reload: **Cmd+Shift+,** on macOS or **Ctrl+Shift+,** on Linux (default bindings).
-Uninstall by removing your theme line and any installed copy.
+Config discovery prefers existing XDG `config.ghostty`, then legacy `config`,
+then their macOS equivalents under
+`~/Library/Application Support/com.mitchellh.ghostty/`.
+If none exists, it creates XDG `config.ghostty`. To choose a specific file:
+
+```sh
+uv run python -m scripts.install_ghostty \
+  --config ~/code/dotfiles/ghostty/.config/ghostty/config
+```
+
+Config symlinks are preserved; their target file is updated.
+Explicit user color settings still override the theme.
+
+Reload: **Cmd+Shift+,** on macOS or **Ctrl+Shift+,** on Linux (default bindings),
+or your configured reload shortcut.
+Uninstall by removing the `theme` line and the installed symlink.
 
 ## Generate and verify
 
 From the repository root:
 
 ```sh
-uv run --locked python -m scripts.generate_ghostty
-uv run --locked python -m scripts.generate_ghostty --check
+uv run python -m scripts.generate_ghostty
+uv run python -m scripts.generate_ghostty --check
 ghostty +validate-config --config-file="$PWD/ports/ghostty/iced-americano"
 ```
 
