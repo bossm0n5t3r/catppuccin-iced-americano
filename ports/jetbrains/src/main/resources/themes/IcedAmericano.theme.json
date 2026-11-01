@@ -1,0 +1,47 @@
+{
+  "name": "Catppuccin Iced Americano",
+  "dark": false,
+  "author": "bossm0n5t3r (palette adaptation of JetBrains New UI Light)",
+  "parentTheme": "ExperimentalLightWithLightHeader",
+  "editorScheme": "/themes/IcedAmericano.xml",
+  "colors": {
+    "Gray1": "#25334D",
+    "Gray2": "#454D65",
+    "Gray5": "#454D65",
+    "Gray6": "#686B81",
+    "Gray7": "#686B81",
+    "Gray12": "#DCE0E8",
+    "Gray13": "#E6E9EF",
+    "Gray14": "#EFF1F5"
+  },
+  "ui": {
+    "ToolWindow": {
+      "background": "#E6E9EF",
+      "Header": {
+        "background": "#DCE0E8"
+      }
+    },
+    "Panel": {
+      "background": "#E6E9EF"
+    },
+    "Tree": {
+      "background": "#E6E9EF"
+    },
+    "EditorTabs": {
+      "underlinedTabBackground": "#EFF1F5",
+      "underlineColor": "#1D62ED"
+    },
+    "Component": {
+      "focusColor": "#1D62ED"
+    },
+    "Link": {
+      "activeForeground": "#1D62ED"
+    },
+    "CombinedDiff": {
+      "BlockBorder": {
+        "selectedActiveColor": "#1D62ED",
+        "selectedInactiveColor": "#CCD0DA"
+      }
+    }
+  }
+}

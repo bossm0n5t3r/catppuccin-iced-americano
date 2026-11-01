@@ -1,15 +1,60 @@
 # Catppuccin Iced Americano
 
 Unofficial Catppuccin Latte derivative, **v0.1.0 / experimental**.
-Light Latte surfaces, blue-black typography and bright blue accents.
+
+> A developer theme built on Catppuccin Latte's soft, cool light palette, with
+> blue-black typography, vivid blue accents and a clearer text hierarchy, designed
+> with protanopia and deuteranopia color distinctions in mind.
+
+*The quiet confidence of blue-black typography.*
+
+Iced Americano is a reinterpretation of Catppuccin Latte, not a generic white IDE
+theme. Accessibility means useful distinctions, readable roles and non-color cues;
+it does not mean maximizing every contrast ratio or simulated color distance.
 
 The source of truth is [`palette/iced-americano.json`](palette/iced-americano.json).
-Blue is `#1D62ED`; Mauve is `#7E0B97`; secondary text is `#454D65`.
+
+## Identity baseline and palette policy
+
+| Token    | Catppuccin Latte | Iced Americano |
+|----------|------------------|----------------|
+| Text     | `#4C4F69`        | `#25334D`      |
+| Blue     | `#1E66F5`        | `#1D62ED`      |
+| Mauve    | `#8839EF`        | `#7E0B97`      |
+| Green    | `#40A02B`        | `#006F80`      |
+| Subtext1 | `#5C5F77`        | `#454D65`      |
+| Subtext0 | `#6C6F85`        | `#686B81`      |
+| Base     | `#EFF1F5`        | `#EFF1F5`      |
+| Mantle   | `#E6E9EF`        | `#E6E9EF`      |
+| Crust    | `#DCE0E8`        | `#DCE0E8`      |
+
+Base, Mantle and Crust retain the Latte surfaces. Other palette colors are unchanged.
+Exact values and the original Latte colors are recorded in `colors` and
+`changes_from_latte` in the [shared palette](palette/iced-americano.json).
+
+**Pause discretionary palette tuning at this baseline.** The next development focus
+is expressing this fixed palette consistently and readably in Ghostty, JetBrains and
+the future Zed port, not optimizing the colors themselves.
+
+The central palette defines the project's design identity. Adapting controls, syntax
+roles and derived highlights to an application is a port's responsibility. **Do not change the central palette to
+resemble IntelliJ's built-in Light theme.**
+
+Any future palette revision requires an explicit design decision against all three:
+
+1. **Identity:** retain Catppuccin Latte's calm, slightly cool surfaces and Iced
+   Americano's blue-black typography, vivid Blue and stronger text hierarchy.
+2. **Accessibility:** improve meaningful readability or semantic distinctions;
+   review regressions in other important pairs, simulations and non-color cues.
+   Neither a single contrast result nor a single simulated distance is sufficient.
+3. **Consistency:** keep the palette usable across ports, update all implemented
+   consumers together and assess implications for future ports.
 
 ## Ports
 
 - **Ghostty:** [installation, mapping and limitations](ports/ghostty/README.md).
-- **Zed / JetBrains:** not implemented.
+- **JetBrains:** [theme plugin structure, build and installation](ports/jetbrains/README.md).
+- **Zed:** not implemented.
 
 ## Usage limits
 
@@ -23,7 +68,8 @@ Blue is `#1D62ED`; Mauve is `#7E0B97`; secondary text is `#454D65`.
   the palette and Ghostty theme do not implement them automatically.
 - CVD simulations are model estimates, not accessibility certification or a
   substitute for user evaluation. Check actual roles and pairings, including
-  Mauve–Green, in each application.
+  Mauve–Green and Red–Green, in each application. Review tradeoffs across pairs and
+  retain explicit labels/icons for status information; simulations are not user validation.
 
 ## Maintenance
 
@@ -41,7 +87,9 @@ the tooling compilation toolchain, not the JVM that launches Gradle.
 The Foojay settings plugin version remains in `settings.gradle.kts`.
 
 ktfmt uses KotlinLang style (four-space indentation) for Kotlin sources and
-Gradle Kotlin DSL scripts in the root project and tooling module.
+Gradle Kotlin DSL scripts in the root project, tooling and JetBrains modules.
+Root script formatting matches only top-level `.kts` files before traversal, excluding
+generated IDE sandbox files. Module source checks still run normally.
 
 ```sh
 # Format first, then check in a separate invocation.

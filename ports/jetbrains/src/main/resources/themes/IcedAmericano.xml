@@ -1,0 +1,418 @@
+<scheme name="Catppuccin Iced Americano" version="142" parent_scheme="Default">
+    <colors>
+        <option name="CARET_ROW_COLOR" value="EEE9E4"/>
+        <option name="LINE_NUMBERS_COLOR" value="9CA0B0"/>
+        <option name="SELECTION_BACKGROUND" value="BBCDF3" deuteranopia="5974AB" protanopia="5974AB"/>
+        <option name="SELECTION_FOREGROUND" value="25334D" deuteranopia="ffffff" protanopia="ffffff"/>
+        <option name="TEARLINE_COLOR" value="CCD0DA"/>
+        <option name="GUTTER_BACKGROUND" value="E6E9EF"/>
+        <option name="FOLDED_TEXT_BORDER_COLOR" value="A7CAD2" deuteranopia="b3b3b3" protanopia="b3b3b3"/>
+        <option name="CARET_COLOR" value="25334D"/>
+        <option name="LINE_NUMBER_ON_CARET_ROW_COLOR" value="25334D"/>
+    </colors>
+    <attributes>
+        <!-- Identifier fallbacks must not retain the parent scheme's pure black. -->
+        <option name="DEFAULT_IDENTIFIER">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <!-- Kotlin constructors otherwise inherit the function-call accent. -->
+        <option name="KOTLIN_CONSTRUCTOR">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="ANNOTATION_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/>
+        <option name="CTRL_CLICKABLE">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_COLOR" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="CUSTOM_KEYWORD1_ATTRIBUTES" baseAttributes="DEFAULT_KEYWORD"/>
+        <option name="CUSTOM_KEYWORD2_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="7E0B97" deuteranopia="1948a6" protanopia="1948a6"/>
+            </value>
+        </option>
+        <option name="CUSTOM_KEYWORD3_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="7E0B97"/>
+            </value>
+        </option>
+        <option name="CUSTOM_KEYWORD4_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="7E0B97"/>
+            </value>
+        </option>
+        <option name="CUSTOM_NUMBER_ATTRIBUTES" baseAttributes="DEFAULT_NUMBER"/>
+        <option name="CUSTOM_STRING_ATTRIBUTES" baseAttributes="DEFAULT_STRING"/>
+        <option name="DEFAULT_ATTRIBUTE">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="121314" protanopia="121314"/>
+            </value>
+        </option>
+        <option name="DEFAULT_BLOCK_COMMENT">
+            <value>
+                <option name="FOREGROUND" value="686B81"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_CONSTANT">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_DOC_COMMENT">
+            <value>
+                <option name="FOREGROUND" value="686B81"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_DOC_COMMENT_TAG">
+            <value>
+                <option name="EFFECT_COLOR" value="9CA0B0"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="DEFAULT_DOC_COMMENT_TAG_VALUE">
+            <value>
+                <option name="FOREGROUND" value="454D65"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_ENTITY">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+            </value>
+        </option>
+        <option name="DEFAULT_FUNCTION_CALL">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="DEFAULT_FUNCTION_DECLARATION">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="121314" protanopia="121314"/>
+            </value>
+        </option>
+        <option name="DEFAULT_INSTANCE_FIELD">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+            </value>
+        </option>
+        <option name="DEFAULT_INVALID_STRING_ESCAPE">
+            <value>
+                <option name="FOREGROUND" value="006F80" deuteranopia="1948a6" protanopia="1948a6"/>
+                <option name="BACKGROUND" value="E9C4CF" deuteranopia="ffdcbf" protanopia="ffdcbf"/>
+                <option name="FONT_TYPE" deuteranopia="bold" protanopia="bold"/>
+            </value>
+        </option>
+        <option name="DEFAULT_KEYWORD">
+            <value>
+                <option name="FOREGROUND" value="7E0B97" deuteranopia="428C" protanopia="428C"/>
+                <option name="FONT_TYPE" deuteranopia="bold" protanopia="bold"/>
+            </value>
+        </option>
+        <option name="DEFAULT_LABEL">
+            <value>
+                <option name="EFFECT_COLOR" value="686B81"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="DEFAULT_LINE_COMMENT">
+            <value>
+                <option name="FOREGROUND" value="686B81"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_METADATA">
+            <value>
+                <option name="FOREGROUND" value="7E0B97" deuteranopia="3381FF" protanopia="3381FF"/>
+            </value>
+        </option>
+        <option name="DEFAULT_NUMBER">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="FONT_TYPE" deuteranopia="bold" protanopia="bold"/>
+            </value>
+        </option>
+        <option name="DEFAULT_STATIC_FIELD">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_STATIC_METHOD">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="121314" protanopia="121314"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="DEFAULT_STRING">
+            <value>
+                <option name="FOREGROUND" value="006F80" deuteranopia="6A84DB" protanopia="6A84DB"/>
+                <option name="FONT_TYPE" deuteranopia="bold" protanopia="bold"/>
+            </value>
+        </option>
+        <option name="DEFAULT_TAG">
+            <value>
+                <option name="BACKGROUND"/>
+            </value>
+        </option>
+        <option name="DEFAULT_VALID_STRING_ESCAPE">
+            <value>
+                <option name="FOREGROUND" value="006F80"/>
+            </value>
+        </option>
+        <option name="DIFF_MODIFIED">
+            <value>
+                <option name="BACKGROUND" value="D0DCF4"/>
+                <option name="ERROR_STRIPE_COLOR" value="BBCDF3"/>
+            </value>
+        </option>
+        <option name="FOLDED_TEXT_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4d4d4d" protanopia="4d4d4d"/>
+                <option name="BACKGROUND" value="DCE7EC" deuteranopia="ebebeb" protanopia="ebebeb"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="FOLLOWED_HYPERLINK_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_COLOR" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="GHERKIN_PYSTRING">
+            <value>
+                <option name="FOREGROUND" value="006F80"/>
+            </value>
+        </option>
+        <option name="GHERKIN_REGEXP_PARAMETER">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="GO_BUILTIN_CONSTANT">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="428C" protanopia="428C"/>
+            </value>
+        </option>
+        <option name="GO_BUILTIN_FUNCTION_CALL">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="428C" protanopia="428C"/>
+            </value>
+        </option>
+        <option name="GO_BUILTIN_TYPE_REFERENCE">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="428C" protanopia="428C"/>
+            </value>
+        </option>
+        <option name="GO_BUILTIN_VARIABLE">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="428C" protanopia="428C"/>
+            </value>
+        </option>
+        <option name="GO_EXPORTED_FUNCTION">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="GO_EXPORTED_FUNCTION_CALL">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="GO_LOCAL_CONSTANT">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+            </value>
+        </option>
+        <option name="GO_LOCAL_FUNCTION">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="GO_LOCAL_FUNCTION_CALL">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="GO_METHOD_RECEIVER">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="GO_PACKAGE">
+            <value>
+                <option name="FOREGROUND" value="454D65"/>
+            </value>
+        </option>
+        <option name="GO_PACKAGE_EXPORTED_CONSTANT">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+            </value>
+        </option>
+        <option name="GO_PACKAGE_LOCAL_CONSTANT">
+            <value>
+                <option name="FOREGROUND" value="454D65" deuteranopia="4B9F" protanopia="4B9F"/>
+            </value>
+        </option>
+        <option name="GO_TYPE_REFERENCE">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="GO_COMMENT_REFERENCE">
+            <value>
+                <option name="FOREGROUND" value="454D65"/>
+            </value>
+        </option>
+        <option name="GO_SHADOWING_VARIABLE">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="0" protanopia="0"/>
+                <option name="FONT_TYPE" value="0" deuteranopia="3" protanopia="3"/>
+            </value>
+        </option>
+        <option name="GROOVY_KEYWORD" baseAttributes="JAVA_KEYWORD"/>
+        <option name="HYPERLINK_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_COLOR" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="IDENTIFIER_UNDER_CARET_ATTRIBUTES">
+            <value>
+                <option name="BACKGROUND" value="E6DFED" deuteranopia="D9E6FF" protanopia="D9E6FF"/>
+                <option name="ERROR_STRIPE_COLOR" value="CDACD9" deuteranopia="acb0bf" protanopia="acb0bf"/>
+            </value>
+        </option>
+        <option name="IMPLICIT_ANONYMOUS_CLASS_PARAMETER_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="1948a6" protanopia="1948a6"/>
+            </value>
+        </option>
+        <option name="INSTANCE_FIELD_ATTRIBUTES" baseAttributes="DEFAULT_INSTANCE_FIELD"/>
+        <option name="JS.GLOBAL_VARIABLE">
+            <value>
+                <option name="FOREGROUND" value="454D65"/>
+            </value>
+        </option>
+        <option name="JS.LOCAL_VARIABLE">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="JS.REGEXP">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="List/map to object conversion">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="MATCHED_BRACE_ATTRIBUTES">
+            <value>
+                <option name="BACKGROUND" value="99CBD0"/>
+            </value>
+        </option>
+        <option name="MATCHED_TAG_NAME">
+            <value>
+                <option name="BACKGROUND" value="CFE3E7"/>
+            </value>
+        </option>
+        <option name="PROPERTIES.KEY">
+            <value>
+                <option name="FOREGROUND" value="454D65"/>
+            </value>
+        </option>
+        <option name="SASS_MIXIN">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="STATIC_FIELD_ATTRIBUTES" baseAttributes="DEFAULT_STATIC_FIELD"/>
+        <option name="STATIC_FINAL_FIELD_ATTRIBUTES" baseAttributes="STATIC_FIELD_ATTRIBUTES"/>
+        <option name="STATIC_METHOD_ATTRIBUTES" baseAttributes="DEFAULT_STATIC_METHOD"/>
+        <option name="TEMPLATE_VARIABLE_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="0" protanopia="0"/>
+                <option name="FONT_TYPE" value="2"/>
+            </value>
+        </option>
+        <option name="TEXT">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+                <option name="BACKGROUND" value="EFF1F5"/>
+            </value>
+        </option>
+        <option name="TEXT_SEARCH_RESULT_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+                <option name="BACKGROUND" value="E9CEA9"/>
+                <option name="ERROR_STRIPE_COLOR" value="DF8E1D" deuteranopia="998f00" protanopia="998f00"/>
+            </value>
+        </option>
+        <option name="TODO_DEFAULT_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+                <option name="FONT_TYPE" value="2"/>
+                <option name="ERROR_STRIPE_COLOR" value="1D62ED" deuteranopia="3777E6" protanopia="3777E6"/>
+            </value>
+        </option>
+        <option name="TYPE_PARAMETER_NAME_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="25334D"/>
+            </value>
+        </option>
+        <option name="WARNING_ATTRIBUTES">
+            <value>
+                <option name="BACKGROUND" value="EDE2D5" deuteranopia="fff0a6" protanopia="fff0a6"/>
+                <option name="ERROR_STRIPE_COLOR" value="DF8E1D" deuteranopia="ffd400" protanopia="ffd400"/>
+                <option name="EFFECT_TYPE" value="1"/>
+            </value>
+        </option>
+        <option name="WRITE_IDENTIFIER_UNDER_CARET_ATTRIBUTES">
+            <value>
+                <option name="BACKGROUND" value="EFE5F1"/>
+                <option name="ERROR_STRIPE_COLOR" value="EDC0E4"/>
+            </value>
+        </option>
+        <option name="WRONG_REFERENCES_ATTRIBUTES">
+            <value>
+                <option name="FOREGROUND" value="D20F39" deuteranopia="d95716" protanopia="d95716"/>
+                <option name="EFFECT_COLOR" deuteranopia="f2b09d" protanopia="f2b09d"/>
+                <option name="EFFECT_TYPE" deuteranopia="4" protanopia="4"/>
+                <option name="FONT_TYPE" deuteranopia="bold" protanopia="bold"/>
+            </value>
+        </option>
+        <option name="YAML_ANCHOR">
+            <value>
+                <option name="FOREGROUND" value="1D62ED"/>
+            </value>
+        </option>
+        <option name="XPATH.FUNCTION">
+            <value>
+                <option name="FOREGROUND" value="1D62ED" deuteranopia="121314" protanopia="121314"/>
+            </value>
+        </option>
+        <option name="XPATH.XPATH_NAME">
+            <value>
+                <option name="FOREGROUND" value="25334D" deuteranopia="428C" protanopia="428C"/>
+            </value>
+        </option>
+        <option name="XPATH.KEYWORD">
+            <value>
+                <option name="FOREGROUND" value="7E0B97" deuteranopia="121314" protanopia="121314"/>
+            </value>
+        </option>
+    </attributes>
+</scheme>

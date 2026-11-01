@@ -1,0 +1,15 @@
+<idea-plugin>
+    <id>io.github.bossm0n5t3r.catppuccin-iced-americano</id>
+    <name>Catppuccin Iced Americano</name>
+    <vendor url="https://github.com/bossm0n5t3r/catppuccin-iced-americano">bossm0n5t3r</vendor>
+    <description><![CDATA[
+        <p>An unofficial, experimental Catppuccin Latte derivative with cool light surfaces,
+        blue-black typography, vivid blue accents and a clearer text hierarchy.</p>
+        <p>Includes a light IDE theme and a matching editor color scheme.</p>
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="io.github.bossm0n5t3r.icedamericano.light"
+                       path="/themes/IcedAmericano.theme.json" targetUi="new"/>
+    </extensions>
+</idea-plugin>
