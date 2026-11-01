@@ -17,10 +17,9 @@
                 <option name="FOREGROUND" value="25334D"/>
             </value>
         </option>
-        <!-- Kotlin constructors otherwise inherit the function-call accent. -->
         <option name="KOTLIN_CONSTRUCTOR">
             <value>
-                <option name="FOREGROUND" value="25334D"/>
+                <option name="FOREGROUND" value="1D62ED"/>
             </value>
         </option>
         <option name="ANNOTATION_NAME_ATTRIBUTES" baseAttributes="DEFAULT_METADATA"/>
