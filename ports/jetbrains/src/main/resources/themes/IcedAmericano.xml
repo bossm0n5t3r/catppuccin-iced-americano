@@ -1,4 +1,4 @@
-<scheme name="Catppuccin Iced Americano" version="142" parent_scheme="Default">
+<scheme name="Iced Americano" version="142" parent_scheme="Default">
     <colors>
         <option name="CARET_ROW_COLOR" value="EEE9E4"/>
         <option name="LINE_NUMBERS_COLOR" value="9CA0B0"/>

@@ -17,7 +17,8 @@ plugin, then uploads the ZIP as an artifact.
 
 Targets IntelliJ IDEA 2026.2.3, minimum platform build `262`. The first build downloads
 the IDE SDK. In the sandbox, select **Settings -> Appearance & Behavior -> Appearance ->
-Theme -> Catppuccin Iced Americano**.
+Theme -> Iced Americano**. The editor color scheme is also named **Iced Americano**;
+the plugin name remains **Catppuccin Iced Americano**.
 
 ## Install
 
