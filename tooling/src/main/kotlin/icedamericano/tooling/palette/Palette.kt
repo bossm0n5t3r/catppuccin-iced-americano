@@ -9,4 +9,7 @@ data class Palette(
     val warningAccent: String,
     val latteBlue: String,
     val latteMauve: String,
+    val changesFromLatte: Map<String, LatteChange>,
 )
+
+data class LatteChange(val from: String, val reason: String)

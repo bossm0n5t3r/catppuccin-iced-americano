@@ -1,0 +1,48 @@
+name: Palette site
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'palette/iced-americano.json'
+      - 'docs/**'
+      - 'tooling/**'
+      - 'gradle/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - '.github/workflows/palette-site.yaml'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'palette/iced-americano.json'
+      - 'docs/**'
+      - 'tooling/**'
+      - 'gradle/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'gradlew*'
+      - '.github/workflows/palette-site.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Check generated palette page
+        run: ./gradlew :tooling:checkSite

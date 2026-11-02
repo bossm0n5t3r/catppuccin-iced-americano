@@ -74,9 +74,28 @@ val checkGhostty =
         )
     }
 
+tasks.register<JavaExec>("generateSite") {
+    group = "generation"
+    description = "Generate the static palette website from the shared palette."
+    classpath = toolingClasspath
+    mainClass = "icedamericano.tooling.site.SiteGeneratorKt"
+    workingDir(repositoryDirectory)
+    args(palettePath.get(), "docs/index.html")
+}
+
+val checkSite =
+    tasks.register<JavaExec>("checkSite") {
+        group = "verification"
+        description = "Check the palette website is current without writing files."
+        classpath = toolingClasspath
+        mainClass = "icedamericano.tooling.site.SiteGeneratorKt"
+        workingDir(repositoryDirectory)
+        args(palettePath.get(), "docs/index.html", "--check")
+    }
+
 tasks.named<JavaExec>("run") { workingDir(repositoryDirectory) }
 
-tasks.named("check") { dependsOn(validatePalette, checkGhostty) }
+tasks.named("check") { dependsOn(validatePalette, checkGhostty, checkSite) }
 
 tasks.named<Test>("test") { useJUnitPlatform() }
 

@@ -84,8 +84,20 @@ internal fun parsePalette(text: String): Palette {
 
     val warning = root["semantics"].objectAt("semantics")["warning"].objectAt("semantics.warning")
     val changes = root["changes_from_latte"].objectAt("changes_from_latte")
-    val blue = changes["blue"].objectAt("changes_from_latte.blue")
-    val mauve = changes["mauve"].objectAt("changes_from_latte.mauve")
+    val latteChanges = LinkedHashMap<String, LatteChange>(changes.size)
+    for ((token, element) in changes) {
+        require(token in colors) { "Unknown changed token: $token" }
+        val path = "changes_from_latte.$token"
+        val change = element.objectAt(path)
+        latteChanges[token] =
+            LatteChange(
+                historicalColor(change["from"], "$path.from"),
+                change["reason"].stringAt("$path.reason"),
+            )
+    }
+    require("blue" in latteChanges && "mauve" in latteChanges) {
+        "changes_from_latte must include blue and mauve"
+    }
     return Palette(
         name = root["name"].stringAt("name"),
         version = root["version"].stringAt("version"),
@@ -93,7 +105,8 @@ internal fun parsePalette(text: String): Palette {
         colors = Collections.unmodifiableMap(colors),
         warningForeground = warning["foreground"].stringAt("semantics.warning.foreground"),
         warningAccent = warning["accent"].stringAt("semantics.warning.accent"),
-        latteBlue = historicalColor(blue["from"], "changes_from_latte.blue.from"),
-        latteMauve = historicalColor(mauve["from"], "changes_from_latte.mauve.from"),
+        latteBlue = latteChanges.getValue("blue").from,
+        latteMauve = latteChanges.getValue("mauve").from,
+        changesFromLatte = Collections.unmodifiableMap(latteChanges),
     )
 }

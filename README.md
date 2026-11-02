@@ -14,6 +14,10 @@ it does not mean maximizing every contrast ratio or simulated color distance.
 
 The source of truth is [`palette/iced-americano.json`](palette/iced-americano.json).
 
+**[Explore the palette website](https://bossm0n5t3r.github.io/catppuccin-iced-americano/)**
+CSS color chips for all 26 tokens, a side-by-side Catppuccin Latte comparison,
+and usage limits. No images, JavaScript, external fonts or runtime dependencies.
+
 ## Identity baseline and palette policy
 
 | Token    | Catppuccin Latte | Iced Americano |
@@ -71,59 +75,24 @@ Any future palette revision requires an explicit design decision against all thr
   Mauve–Green and Red–Green, in each application. Review tradeoffs across pairs and
   retain explicit labels/icons for status information; simulations are not user validation.
 
-## Maintenance
+## Commands
 
-Kotlin tooling uses the JDK configured in `gradle/libs.versions.toml` and the
-Gradle Wrapper. Ghostty installation uses Bash (macOS/Linux) and standard system
-utilities, without launching Gradle or a JVM. Ghostty itself needs only the generated theme file.
+| Command                                                                    | Description                                                                                                                              |
+|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `./gradlew ktfmtFormat`                                                    | Format Kotlin and Gradle Kotlin DSL using KotlinLang style. Run before checks.                                                           |
+| `./gradlew ktfmtCheck :tooling:build`                                      | Check formatting, build tooling, run tests, validate the palette, and check generated Ghostty/site output without modifying it.          |
+| `./gradlew :tooling:validatePalette`                                       | Validate tokens, HEX values, and required contrast pairs against the unrounded 4.5:1 threshold. Diagnostic pairs do not fail validation. |
+| `./gradlew :tooling:reportCvd`                                             | Print CVD simulations and color-distance diagnostics; not accessibility certification.                                                   |
+| `./gradlew :tooling:generateGhostty`                                       | Regenerate the Ghostty theme from the shared palette.                                                                                    |
+| `./gradlew :tooling:checkGhostty`                                          | Check the generated Ghostty theme without modifying it.                                                                                  |
+| `./gradlew :tooling:generateSite`                                          | Regenerate the palette website after palette or template changes; commit `docs/index.html`.                                              |
+| `./gradlew :tooling:checkSite`                                             | Check the generated palette website without modifying it.                                                                                |
+| `./ports/ghostty/install.sh`                                               | Install the Ghostty theme on macOS/Linux using Bash; no Gradle or JVM required.                                                          |
+| `./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json` | Override the palette path; relative paths resolve from the repository root.                                                              |
+| `./gradlew :tooling:run --args="validate palette/iced-americano.json"`     | Validate a palette through the CLI.                                                                                                      |
+| `./gradlew :tooling:run --args="cvd"`                                      | Print the CVD report through the CLI.                                                                                                    |
 
-### Kotlin tooling
-
-The Gradle tooling module reads the shared palette and provides Kotlin contrast
-validation, CVD reports and Ghostty theme generation. JSON parsing uses kotlinx.serialization.
-JDK toolchain, Kotlin plugin, JSON library and ktfmt plugin versions are managed in
-[`gradle/libs.versions.toml`](gradle/libs.versions.toml). The JDK entry controls
-the tooling compilation toolchain, not the JVM that launches Gradle.
-The Foojay settings plugin version remains in `settings.gradle.kts`.
-
-ktfmt uses KotlinLang style (four-space indentation) for Kotlin sources and
-Gradle Kotlin DSL scripts in the root project, tooling and JetBrains modules.
-Root script formatting matches only top-level `.kts` files before traversal, excluding
-generated IDE sandbox files. Module source checks still run normally.
-
-```sh
-# Format first, then check in a separate invocation.
-./gradlew ktfmtFormat
-./gradlew ktfmtCheck :tooling:build
-
-# Validate the palette and print the CVD report.
-./gradlew :tooling:validatePalette
-./gradlew :tooling:reportCvd
-
-# Generate explicitly; check is read-only and also runs as part of build.
-./gradlew :tooling:generateGhostty
-./gradlew :tooling:checkGhostty
-
-# Install explicitly, without launching Gradle or a JVM.
-./ports/ghostty/install.sh
-
-# Override the palette path; relative paths are resolved from the repository root.
-./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json
-
-# Run the same commands through the CLI.
-./gradlew :tooling:run --args="validate palette/iced-americano.json"
-./gradlew :tooling:run --args="cvd"
-```
-
-`:tooling:check` (and therefore `:tooling:build`) runs palette validation,
-Ghostty freshness checks and tests. It never regenerates stale/missing themes
-or installs into user settings. Installation is performed by explicitly running
-`ports/ghostty/install.sh`; see the [Ghostty instructions](ports/ghostty/README.md).
-Validation exit codes are 0 for success, 1 for palette token/HEX or required-contrast
-failures, and 2 for invalid usage, malformed schema/JSON or unreadable files.
-Generation/check exits are 0 for success, 1 for missing/stale output in check mode,
-and 2 for invalid input or I/O errors.
-Contrast uses the unrounded 4.5:1 threshold; diagnostic pairs do not fail validation.
+## License
 
 Licensed under the [MIT License](LICENSE).
 See [third-party notices](docs/THIRD_PARTY_NOTICES.md) for Catppuccin attribution.
