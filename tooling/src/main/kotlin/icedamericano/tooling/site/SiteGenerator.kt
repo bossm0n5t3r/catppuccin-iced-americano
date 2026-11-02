@@ -20,7 +20,42 @@ private fun String.html(): String =
         }
     }
 
-internal fun renderSite(palette: Palette): String {
+private fun siteTemplate(): String =
+    checkNotNull(Palette::class.java.getResourceAsStream("/site.html")) { "Missing site template" }
+        .bufferedReader(Charsets.UTF_8)
+        .use { it.readText() }
+
+private fun StringBuilder.appendColorCell(background: String, value: String) {
+    val cell =
+        """<td><span class="mini-swatch" style="background: $background" aria-hidden="true"></span><code>$value</code></td>"""
+    append("    ")
+    // Match the existing table layout: short cells wrap attributes; longer cells wrap </td>.
+    if (cell.length <= 112) {
+        val split = cell.indexOf(" aria-hidden")
+        append(cell, 0, split).append("\n              ")
+        append(cell, split + 1, cell.length).append('\n')
+    } else {
+        append(cell, 0, cell.length - "</td>".length).append("\n    </td>\n")
+    }
+}
+
+private fun StringBuilder.appendReasonCell(reason: String) {
+    if (reason.length <= 96) {
+        append("    <td>").append(reason).append("</td>\n")
+        return
+    }
+    append("    <td>")
+    var start = 0
+    while (reason.length - start > 96) {
+        val split = reason.lastIndexOf(' ', start + 96)
+        if (split <= start) break
+        append(reason, start, split).append("\n        ")
+        start = split + 1
+    }
+    append(reason, start, reason.length).append("\n    </td>\n")
+}
+
+internal fun renderSite(palette: Palette, html: String = siteTemplate()): String {
     val variables = StringBuilder()
     val cards = StringBuilder()
     val rows = StringBuilder()
@@ -29,42 +64,50 @@ internal fun renderSite(palette: Palette): String {
         val change = palette.changesFromLatte[token]
         val original = change?.from ?: value
         val reason = change?.reason?.html() ?: "Unchanged from Catppuccin Latte."
-        variables.append("      --$token: $value;\n")
-        cards.append(
-            "        <li class=\"color-card\"><div class=\"swatch\" style=\"background: var(--$token)\" aria-hidden=\"true\"></div>"
-        )
-        cards.append("<div class=\"color-details\"><h3>$label</h3><code>$value</code>")
-        cards.append(
-            "<span class=\"tag\">${if (change != null) "Modified" else "Unchanged"}</span></div></li>\n"
-        )
-        rows.append("          <tr><th scope=\"row\">$label</th>")
-        rows.append(
-            "<td><span class=\"mini-swatch\" style=\"background: $original\" aria-hidden=\"true\"></span><code>$original</code></td>"
-        )
-        rows.append(
-            "<td><span class=\"mini-swatch\" style=\"background: var(--$token)\" aria-hidden=\"true\"></span><code>$value</code></td>"
-        )
-        rows.append("<td>$reason</td></tr>\n")
+        variables.append("--$token: $value;\n")
+        cards
+            .append(
+                """
+            <li class="color-card">
+                <div class="swatch" style="background: var(--$token)" aria-hidden="true"></div>
+                <div class="color-details">
+                    <h3>$label</h3>
+                    <code>$value</code>
+                    <span class="tag">${if (change != null) "Modified" else "Unchanged"}</span>
+                </div>
+            </li>
+            """
+                    .trimIndent()
+            )
+            .append('\n')
+        rows.append("<tr>\n    <th scope=\"row\">$label</th>\n")
+        rows.appendColorCell(original, original)
+        rows.appendColorCell("var(--$token)", value)
+        rows.appendReasonCell(reason)
+        rows.append("</tr>\n")
     }
-    val replacements =
+    return updateSiteRegions(
+        html,
         mapOf(
-            "variables" to variables.toString().removeSuffix("\n"),
+            "colors" to variables.toString().removeSuffix("\n"),
+            "metadata" to
+                """<p class="eyebrow">Unofficial Catppuccin Latte derivative · v${palette.version.html()} · ${palette.status.html()}</p>""",
+            "color-count" to
+                """
+                <p class="section-note">All ${palette.colors.size} colors, directly from the shared palette. Every chip has a token name and
+                    selectable HEX value; modified tokens are labeled explicitly.</p>
+                """
+                    .trimIndent(),
             "cards" to cards.toString().removeSuffix("\n"),
+            "change-count" to
+                """
+                <p class="section-note">${palette.changesFromLatte.size} deliberate changes. Everything else retains the original Catppuccin Latte value.
+                    Compare the original and current colors side by side.</p>
+                """
+                    .trimIndent(),
             "rows" to rows.toString().removeSuffix("\n"),
-            "version" to palette.version.html(),
-            "status" to palette.status.html(),
-            "color-count" to palette.colors.size.toString(),
-            "change-count" to palette.changesFromLatte.size.toString(),
-        )
-    val template =
-        checkNotNull(Palette::class.java.getResourceAsStream("/site.html")) {
-                "Missing site template"
-            }
-            .bufferedReader(Charsets.UTF_8)
-            .use { it.readText() }
-    return Regex("@@([a-z-]+)@@").replace(template) { match ->
-        replacements.getValue(match.groupValues[1])
-    }
+        ),
+    )
 }
 
 internal fun generateSite(palettePath: Path, outputPath: Path, check: Boolean): Boolean {
@@ -74,8 +117,12 @@ internal fun generateSite(palettePath: Path, outputPath: Path, check: Boolean): 
     ) {
         "Palette source and generated page must be different files"
     }
-    val expected = renderSite(readPalette(palettePath))
-    if (check) return Files.exists(outputPath) && Files.readString(outputPath) == expected
+    val palette = readPalette(palettePath)
+    val actual =
+        if (Files.exists(outputPath)) Files.readString(outputPath)
+        else if (check) return false else siteTemplate()
+    val expected = renderSite(palette, actual)
+    if (check) return actual == expected
     outputPath.toAbsolutePath().parent?.let { Files.createDirectories(it) }
     Files.writeString(outputPath, expected)
     return true
