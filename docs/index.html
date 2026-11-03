@@ -214,6 +214,25 @@
             max-width: 780px;
         }
 
+        .ports {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            list-style: none;
+            padding: 0;
+            margin-top: 1.8rem;
+        }
+
+        .port-card {
+            border: 1px solid var(--surface0);
+            border-radius: .7rem;
+            padding: 1.5rem;
+        }
+
+        .port-card p {
+            color: var(--subtext1);
+        }
+
         .palette {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
@@ -289,6 +308,14 @@
             white-space: nowrap;
         }
 
+        tr.modified {
+            background: var(--mantle);
+        }
+
+        tr.modified > th {
+            box-shadow: inset 3px 0 var(--blue);
+        }
+
         td:nth-child(2), td:nth-child(3) {
             white-space: nowrap;
         }
@@ -335,7 +362,7 @@
                 padding-top: 3rem;
             }
 
-            .preview {
+            .preview, .ports {
                 grid-template-columns: 1fr;
             }
 
@@ -355,8 +382,8 @@
 <header>
     <nav class="container" aria-label="Main navigation">
         <span class="wordmark">Iced Americano /</span>
-        <div class="nav-links"><a href="#palette">Palette</a><a href="#comparison">Compare Latte</a><a
-                href="https://github.com/bossm0n5t3r/catppuccin-iced-americano">GitHub</a></div>
+        <div class="nav-links"><a href="#install">Install</a><a href="#palette">Palette</a><a href="#comparison">Compare
+            Latte</a><a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano">GitHub</a></div>
     </nav>
 </header>
 <main id="main" class="container">
@@ -367,8 +394,7 @@
         <h1>Light palette.<br><span>Blue-black soul.</span></h1>
         <p class="intro">The quiet confidence of blue-black typography. Cool Latte surfaces, vivid blue accents, and a
             clearer text hierarchy — this is Iced Americano.</p>
-        <div class="hero-links"><a href="#palette">Explore the colors ↓</a><a
-                href="https://github.com/bossm0n5t3r/catppuccin-iced-americano#ports">Install a port ↗</a></div>
+        <div class="hero-links"><a href="#palette">Explore the colors ↓</a><a href="#install">Install a port ↓</a></div>
     </div>
     <div class="preview" aria-label="Theme preview">
         <div class="preview-copy"><p class="eyebrow">A familiar surface. A sharper voice.</p>
@@ -384,6 +410,24 @@
 <span class="function">takeASip</span>(coffee);</code></pre>
         </div>
     </div>
+    <section id="install" aria-labelledby="install-heading">
+        <h2 id="install-heading">Install Iced Americano</h2>
+        <p class="section-note">Bring the palette to your terminal or IDE.</p>
+        <ul class="ports">
+            <li class="port-card">
+                <h3>Ghostty</h3>
+                <p>Terminal theme with an install script for macOS and Linux.</p>
+                <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/ghostty/README.md">Ghostty
+                    installation guide ↗</a>
+            </li>
+            <li class="port-card">
+                <h3>JetBrains</h3>
+                <p>IDE UI theme and editor color scheme, packaged as a plugin.</p>
+                <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/jetbrains/README.md">JetBrains
+                    build &amp; installation guide ↗</a>
+            </li>
+        </ul>
+    </section>
     <section id="palette" aria-labelledby="palette-heading">
         <h2 id="palette-heading">The palette</h2>
         <!-- palette:color-count:start depth=2 -->
@@ -647,8 +691,8 @@
                     </td>
                     <td>Unchanged from Catppuccin Latte.</td>
                 </tr>
-                <tr>
-                    <th scope="row">Mauve</th>
+                <tr class="modified">
+                    <th scope="row">Mauve<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #8839EF"
                               aria-hidden="true"></span><code>#8839EF</code></td>
                     <td><span class="mini-swatch" style="background: var(--mauve)" aria-hidden="true"></span><code>#7E0B97</code>
@@ -689,8 +733,8 @@
                     </td>
                     <td>Unchanged from Catppuccin Latte.</td>
                 </tr>
-                <tr>
-                    <th scope="row">Green</th>
+                <tr class="modified">
+                    <th scope="row">Green<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #40A02B"
                               aria-hidden="true"></span><code>#40A02B</code></td>
                     <td><span class="mini-swatch" style="background: var(--green)" aria-hidden="true"></span><code>#006F80</code>
@@ -721,8 +765,8 @@
                     </td>
                     <td>Unchanged from Catppuccin Latte.</td>
                 </tr>
-                <tr>
-                    <th scope="row">Blue</th>
+                <tr class="modified">
+                    <th scope="row">Blue<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #1E66F5"
                               aria-hidden="true"></span><code>#1E66F5</code></td>
                     <td><span class="mini-swatch" style="background: var(--blue)" aria-hidden="true"></span><code>#1D62ED</code>
@@ -739,24 +783,24 @@
                     </td>
                     <td>Unchanged from Catppuccin Latte.</td>
                 </tr>
-                <tr>
-                    <th scope="row">Text</th>
+                <tr class="modified">
+                    <th scope="row">Text<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #4C4F69"
                               aria-hidden="true"></span><code>#4C4F69</code></td>
                     <td><span class="mini-swatch" style="background: var(--text)" aria-hidden="true"></span><code>#25334D</code>
                     </td>
                     <td>Blue-black foreground for primary text</td>
                 </tr>
-                <tr>
-                    <th scope="row">Subtext1</th>
+                <tr class="modified">
+                    <th scope="row">Subtext1<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #5C5F77"
                               aria-hidden="true"></span><code>#5C5F77</code></td>
                     <td><span class="mini-swatch" style="background: var(--subtext1)" aria-hidden="true"></span><code>#454D65</code>
                     </td>
                     <td>Strengthen the secondary text hierarchy</td>
                 </tr>
-                <tr>
-                    <th scope="row">Subtext0</th>
+                <tr class="modified">
+                    <th scope="row">Subtext0<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #6C6F85"
                               aria-hidden="true"></span><code>#6C6F85</code></td>
                     <td><span class="mini-swatch" style="background: var(--subtext0)" aria-hidden="true"></span><code>#686B81</code>
@@ -859,7 +903,8 @@
     <div class="container">Iced Americano is an unofficial derivative of <a href="https://catppuccin.com/palette/">Catppuccin
         Latte</a>, not an official Catppuccin flavor.<br>MIT licensed · <a
             href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/LICENSE">Project license</a> · <a
-            href="THIRD_PARTY_NOTICES.md">Catppuccin attribution &amp; license</a> · Built with HTML &amp; CSS, no
+            href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/docs/THIRD_PARTY_NOTICES.md">Catppuccin
+        attribution &amp; license</a> · Built with HTML &amp; CSS, no
         images or JavaScript.
     </div>
 </footer>

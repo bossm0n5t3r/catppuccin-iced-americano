@@ -15,8 +15,9 @@ it does not mean maximizing every contrast ratio or simulated color distance.
 The source of truth is [`palette/iced-americano.json`](palette/iced-americano.json).
 
 **[Explore the palette website](https://bossm0n5t3r.github.io/catppuccin-iced-americano/)**
-CSS color chips for all 26 tokens, a side-by-side Catppuccin Latte comparison,
-and usage limits. No images, JavaScript, external fonts or runtime dependencies.
+CSS color chips for all 26 tokens, a side-by-side Catppuccin Latte comparison
+with labeled, highlighted modified rows, direct Ghostty and JetBrains installation
+guides, and usage limits. No images, JavaScript, external fonts or runtime dependencies.
 
 ## Identity baseline and palette policy
 

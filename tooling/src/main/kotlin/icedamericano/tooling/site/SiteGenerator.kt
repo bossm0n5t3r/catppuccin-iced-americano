@@ -80,7 +80,13 @@ internal fun renderSite(palette: Palette, html: String = siteTemplate()): String
                     .trimIndent()
             )
             .append('\n')
-        rows.append("<tr>\n    <th scope=\"row\">$label</th>\n")
+        if (change != null) {
+            rows.append(
+                "<tr class=\"modified\">\n    <th scope=\"row\">$label<span class=\"tag\">Modified</span></th>\n"
+            )
+        } else {
+            rows.append("<tr>\n    <th scope=\"row\">$label</th>\n")
+        }
         rows.appendColorCell(original, original)
         rows.appendColorCell("var(--$token)", value)
         rows.appendReasonCell(reason)
