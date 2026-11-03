@@ -32,6 +32,6 @@ jobs:
       - name: Upload plugin ZIP
         uses: actions/upload-artifact@v7
         with:
-          name: jetbrains-plugin
+          name: catppuccin-iced-americano-jetbrains
           path: ports/jetbrains/build/distributions/*.zip
           if-no-files-found: error

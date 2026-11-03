@@ -36,4 +36,6 @@ intellijPlatform {
     pluginVerification { ides { recommended() } }
 }
 
+tasks.buildPlugin { archiveBaseName.set("catppuccin-iced-americano-jetbrains") }
+
 ktfmt { kotlinLangStyle() }

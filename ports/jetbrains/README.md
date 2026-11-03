@@ -13,7 +13,7 @@ Run from the repository root with JDK 25:
 ```
 
 [GitHub Actions](../../.github/workflows/jetbrains.yaml) builds and validates the
-plugin, then uploads the ZIP as an artifact.
+plugin, then uploads the ZIP as the `catppuccin-iced-americano-jetbrains` artifact.
 
 Targets IntelliJ IDEA 2026.2.3, minimum platform build `262`. The first build downloads
 the IDE SDK. In the sandbox, select **Settings -> Appearance & Behavior -> Appearance ->
@@ -23,7 +23,7 @@ the plugin name remains **Catppuccin Iced Americano**.
 ## Install
 
 Use **Settings -> Plugins -> gear -> Install Plugin from Disk…** and select
-`ports/jetbrains/build/distributions/jetbrains-0.1.0.zip`. Restart if prompted,
+`ports/jetbrains/build/distributions/catppuccin-iced-americano-jetbrains-0.1.0.zip`. Restart if prompted,
 then select the theme under Appearance.
 
 ## Maintenance
