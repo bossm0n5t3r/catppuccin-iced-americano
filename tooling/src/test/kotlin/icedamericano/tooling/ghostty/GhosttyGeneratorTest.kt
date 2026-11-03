@@ -1,5 +1,6 @@
 package icedamericano.tooling.ghostty
 
+import icedamericano.tooling.color.contrast
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
@@ -8,6 +9,7 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
@@ -53,23 +55,28 @@ class GhosttyGeneratorTest {
             mapOf(
                 "background" to "#EFF1F5",
                 "foreground" to "#25334D",
-                "cursor-color" to "#1D62ED",
-                "cursor-text" to "#EFF1F5",
-                "selection-background" to "#BCC0CC",
+                "cursor-color" to "#DC8A78",
+                "cursor-text" to "#25334D",
+                "selection-background" to "#D8DAE1",
                 "selection-foreground" to "#25334D",
+                "split-divider-color" to "#CCD0DA",
             ),
             scalars,
         )
+        assertTrue(
+            contrast(scalars.getValue("cursor-color"), scalars.getValue("cursor-text")) >= 4.5,
+            "Block cursor text must remain legible against the cursor color.",
+        )
         assertEquals(
             listOf(
-                    "#25334D",
+                    "#454D65",
                     "#D20F39",
                     "#006F80",
                     "#DF8E1D",
                     "#1D62ED",
                     "#EA76CB",
                     "#179299",
-                    "#454D65",
+                    "#ACB0BE",
                     "#686B81",
                     "#D20F39",
                     "#006F80",
@@ -77,7 +84,7 @@ class GhosttyGeneratorTest {
                     "#1D62ED",
                     "#EA76CB",
                     "#179299",
-                    "#25334D",
+                    "#BCC0CC",
                 )
                 .withIndex()
                 .associate { it.index to it.value },
@@ -85,11 +92,33 @@ class GhosttyGeneratorTest {
         )
         val modified = withColor(root, "blue", JsonPrimitive("#aabbcc"))
         val (changedScalars, changedAnsi) = parsed(renderGhosttyTheme(modified))
-        assertEquals("#AABBCC", changedScalars["cursor-color"])
+        assertEquals(scalars["cursor-color"], changedScalars["cursor-color"])
         assertEquals("#AABBCC", changedAnsi[4])
         assertEquals("#AABBCC", changedAnsi[12])
         assertEquals(ansi[1], changedAnsi[1])
         assertEquals(ansi[9], changedAnsi[9])
+    }
+
+    @Test
+    fun ansiBlackBackgroundAndBrightWhiteForegroundAreDistinct() {
+        val source = directory.resolve("palette.json")
+        val output = directory.resolve("theme")
+        Files.writeString(source, fixture().toString())
+        generateGhostty(source, output)
+        val ansi = parsed(Files.readString(output)).second
+        assertNotEquals(ansi.getValue(0), ansi.getValue(15))
+    }
+
+    @Test
+    fun selectionBackgroundMixesTwentyPercentOverlayWithEightyPercentBase() {
+        val root =
+            withColor(
+                withColor(fixture(), "overlay2", JsonPrimitive("#000407")),
+                "base",
+                JsonPrimitive("#000101"),
+            )
+        val (scalars, _) = parsed(renderGhosttyTheme(root))
+        assertEquals("#000202", scalars["selection-background"])
     }
 
     @Test
@@ -134,15 +163,17 @@ class GhosttyGeneratorTest {
         val original = "existing output\n".toByteArray()
         Files.write(output, original)
         val invalid = mutableListOf(JsonNull, JsonObject(emptyMap()))
-        for (value in
-            listOf(
-                null,
-                JsonNull,
-                JsonPrimitive(42),
-                JsonPrimitive("#GGGGGG"),
-                JsonPrimitive("#123"),
-            )) {
-            invalid.add(withColor(root, "blue", value))
+        for (token in listOf("blue", "rosewater", "overlay2", "surface0")) {
+            for (value in
+                listOf(
+                    null,
+                    JsonNull,
+                    JsonPrimitive(42),
+                    JsonPrimitive("#GGGGGG"),
+                    JsonPrimitive("#123"),
+                )) {
+                invalid.add(withColor(root, token, value))
+            }
         }
         for (field in listOf("version", "status")) {
             for (value in
