@@ -21,6 +21,9 @@ sourceSets.test { resources.srcDir(rootProject.layout.projectDirectory.dir("pale
 
 tasks.processTestResources {
     from(rootProject.layout.projectDirectory.file("ports/ghostty/install.sh"))
+    from(rootProject.layout.projectDirectory.dir("ports/jetbrains/src/main/resources/themes")) {
+        into("jetbrains")
+    }
 }
 
 val palettePath = providers.gradleProperty("palette").orElse("palette/iced-americano.json")

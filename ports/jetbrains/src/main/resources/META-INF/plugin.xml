@@ -5,11 +5,15 @@
     <description><![CDATA[
         <p>An unofficial, experimental Catppuccin Latte derivative with cool light surfaces,
         blue-black typography, vivid blue accents and a clearer text hierarchy.</p>
-        <p>Includes a light IDE theme and a matching editor color scheme.</p>
+        <p>Based on Catppuccin for JetBrains, with standard and Islands light UI themes
+        and a matching editor color scheme.</p>
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <themeProvider id="io.github.bossm0n5t3r.icedamericano.light"
-                       path="/themes/IcedAmericano.theme.json" targetUi="new"/>
+        <themeProvider id="io.github.bossm0n5t3r.icedamericano.light" path="/themes/IcedAmericano.theme.json"
+                       targetUi="new"/>
+        <themeProvider id="io.github.bossm0n5t3r.icedamericano.islands" path="/themes/IcedAmericano-islands.theme.json"
+                       targetUi="islands"/>
+        <bundledColorScheme id="io.github.bossm0n5t3r.icedamericano.default" path="/themes/IcedAmericano"/>
     </extensions>
 </idea-plugin>

@@ -4,9 +4,15 @@ The palette is derived from Catppuccin Latte.
 Source: https://catppuccin.com/palette/
 License: https://github.com/catppuccin/catppuccin/blob/main/LICENSE
 
+The JetBrains UI and editor schemes are adapted from Catppuccin for JetBrains.
+Source: https://github.com/catppuccin/jetbrains
+Revision: 01b38e9d4558fdf7d64e4ac9713da0f548643517
+License: https://github.com/catppuccin/jetbrains/blob/main/LICENSE
+
 MIT License
 
 Copyright (c) 2021 Catppuccin
+Copyright (c) 2022 Catppuccin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
