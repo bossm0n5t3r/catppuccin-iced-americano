@@ -1,14 +1,21 @@
-name: JetBrains
+name: CI
 
 on:
   push:
     branches: [ master ]
+    paths-ignore: [ '**.md', 'LICENSE' ]
   pull_request:
     branches: [ master ]
+    paths-ignore: [ '**.md', 'LICENSE' ]
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
@@ -26,8 +33,9 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      - name: Run tests and verify plugin
-        run: ./gradlew :tooling:test :tooling:checkJetBrains :ports:jetbrains:check :ports:jetbrains:buildPlugin :ports:jetbrains:verifyPluginStructure
+      # Formatting, tooling tests, palette validation, Ghostty/JetBrains/site checks and the plugin.
+      - name: Check and build
+        run: ./gradlew ktfmtCheck :tooling:build :ports:jetbrains:check :ports:jetbrains:buildPlugin :ports:jetbrains:verifyPluginStructure
 
       - name: Upload plugin ZIP
         uses: actions/upload-artifact@v7

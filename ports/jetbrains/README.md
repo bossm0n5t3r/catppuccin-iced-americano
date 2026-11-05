@@ -12,7 +12,7 @@ Run from the repository root with JDK 25:
 ./gradlew :ports:jetbrains:runIde
 ```
 
-The first build downloads the IDE SDK. [GitHub Actions](../../.github/workflows/jetbrains.yaml)
+The first build downloads the IDE SDK. [CI](../../.github/workflows/ci.yaml)
 runs the tests, validates the plugin and uploads the ZIP as a build artifact;
 the [release workflow](../../.github/workflows/release.yaml) publishes it for `v*` tags.
 
