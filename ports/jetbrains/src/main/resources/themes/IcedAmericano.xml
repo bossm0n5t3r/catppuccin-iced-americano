@@ -22,8 +22,8 @@
         <option name="DOCUMENTATION_COLOR" value="e6e9ef"/>
         <option name="DOC_COMMENT_LINK" value="1d62ed"/>
         <option name="ERROR_HINT" value="b7191a"/>
-        <option name="FILESTATUS_ADDED" value="036b65"/>
-        <option name="FILESTATUS_COPIED" value="036b65"/>
+        <option name="FILESTATUS_ADDED" value="3a7453"/>
+        <option name="FILESTATUS_COPIED" value="3a7453"/>
         <option name="FILESTATUS_DELETED" value="acb0be"/>
         <option name="FILESTATUS_HIJACKED" value="df8e1d"/>
         <option name="FILESTATUS_IDEA_FILESTATUS_DELETED_FROM_FILE_SYSTEM" value="acb0be"/>
@@ -40,7 +40,7 @@
         <option name="FILESTATUS_SUPPRESSED" value="686b81"/>
         <option name="FILESTATUS_SWITCHED" value="7287fd"/>
         <option name="FILESTATUS_UNKNOWN" value="fc7222"/>
-        <option name="FILESTATUS_addedOutside" value="036b65"/>
+        <option name="FILESTATUS_addedOutside" value="3a7453"/>
         <option name="FILESTATUS_changelistConflict" value="bc2f2f"/>
         <option name="FILESTATUS_modifiedOutside" value="1d62ed"/>
         <option name="FOLDED_TEXT_BORDER_COLOR" value=""/>
@@ -425,7 +425,7 @@
         <!-- other terminal colors -->
         <option name="CONSOLE_ERROR_OUTPUT">
             <value>
-                <option name="FOREGROUND" value="e64553"/>
+                <option name="FOREGROUND" value="b7191a"/>
             </value>
         </option>
         <option name="CONSOLE_RANGE_TO_EXECUTE">
@@ -435,7 +435,7 @@
         </option>
         <option name="CONSOLE_SYSTEM_OUTPUT">
             <value>
-                <option name="FOREGROUND" value="dc8a78"/>
+                <option name="FOREGROUND" value="1d62ed"/>
             </value>
         </option>
         <option name="CONSOLE_USER_INPUT">
@@ -1611,7 +1611,7 @@
         </option>
         <option name="LOG_ERROR_OUTPUT">
             <value>
-                <option name="FOREGROUND" value="e64553"/>
+                <option name="FOREGROUND" value="b7191a"/>
             </value>
         </option>
         <option name="LOG_EXPIRED_ENTRY">

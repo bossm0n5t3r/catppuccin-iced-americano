@@ -74,8 +74,15 @@ private fun selection(color: String, amount: Double = 0.4) = Mix(color, "base", 
 
 private fun rainbow(color: String) = Mix("text", color, 0.6)
 
+// Port-specific: a green leaning toward yellow keeps added files at 4.5:1 on Mantle while
+// separating them from Text and the Blue modified status more than palette Green or Teal.
+private val addedFile = Mix("green", "yellow", 0.75)
+
 internal val editorSchemeDerivations: Map<String, Derivation> =
     mapOf(
+        "colors.FILESTATUS_ADDED" to addedFile,
+        "colors.FILESTATUS_COPIED" to addedFile,
+        "colors.FILESTATUS_addedOutside" to addedFile,
         "colors.CARET_ROW_COLOR" to Mix("surface1", "base", 0.15),
         "colors.FILESTATUS_UNKNOWN" to Mix("peach", "base", 0.9),
         "colors.FILESTATUS_changelistConflict" to Mix("red", "base", 0.9),

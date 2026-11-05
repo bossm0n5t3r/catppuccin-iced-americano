@@ -415,7 +415,7 @@
       "background": "panelBackground"
     },
     "TextField": {
-      "background": "secondaryBackground",
+      "background": "primaryBackground",
       "selectionBackground": "textFieldBackground"
     },
     "ToggleButton": {
@@ -531,9 +531,9 @@
       "Checkbox.Background.Default": "#eff1f5",
       "Checkbox.Background.Disabled": "#eff1f5",
       "Checkbox.Background.Selected": "#d3d6df",
-      "Checkbox.Border.Default": "#ccd0da",
+      "Checkbox.Border.Default": "#7c7f93",
       "Checkbox.Border.Disabled": "#ccd0da",
-      "Checkbox.Border.Selected": "#ccd0da",
+      "Checkbox.Border.Selected": "#7c7f93",
       "Checkbox.Foreground.Disabled": "#9ca0b0",
       "Checkbox.Foreground.Selected": "#1d62ed",
       "Tree.iconColor": "#25334d"

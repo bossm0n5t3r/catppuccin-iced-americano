@@ -1,6 +1,7 @@
 package icedamericano.tooling.jetbrains
 
 import icedamericano.tooling.color.contrast
+import icedamericano.tooling.color.distance
 import javax.xml.parsers.DocumentBuilderFactory
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -79,6 +80,31 @@ class JetBrainsReadabilityTest {
         }
     }
 
+    @Test
+    fun uncheckedCheckboxBorderMeetsNonTextContrast() {
+        // Fields and buttons are identified by their fill; an unchecked checkbox's fill nearly
+        // matches the panel, so its border is its only boundary.
+        for (name in listOf("IcedAmericano.theme.json", "IcedAmericano-islands.theme.json")) {
+            val theme =
+                resource(name).bufferedReader().use {
+                    Json.parseToJsonElement(it.readText()).jsonObject
+                }
+            val panel =
+                theme
+                    .getValue("colors")
+                    .jsonObject
+                    .at(theme.getValue("ui").jsonObject.at("Panel", "background"))
+            for (state in listOf("Default", "Selected")) {
+                val border = theme.at("icons", "ColorPalette", "Checkbox.Border.$state")
+                val ratio = contrast(border, panel)
+                assertTrue(
+                    ratio >= 3.0,
+                    "$name checkbox $state border: $border on $panel has contrast $ratio",
+                )
+            }
+        }
+    }
+
     private fun Element.options(): List<Element> =
         (0 until childNodes.length)
             .mapNotNull { childNodes.item(it) as? Element }
@@ -108,9 +134,66 @@ class JetBrainsReadabilityTest {
                 "DEFAULT_CLASS_NAME",
                 "DEFAULT_CLASS_REFERENCE",
                 "DEFAULT_INTERFACE_NAME",
+                "CONSOLE_SYSTEM_OUTPUT",
+                "CONSOLE_ERROR_OUTPUT",
+                "LOG_ERROR_OUTPUT",
             )) {
             assertReadable("#" + attributes.getValue(role).getValue("FOREGROUND"), background, role)
         }
+    }
+
+    @Test
+    fun editorSelectionIsVisibleInTextFields() {
+        // Dialog inputs such as Rename are editor text fields: they paint the editor
+        // selection on TextField.background, which must not blend with it.
+        val selection =
+            resource("IcedAmericano.xml").use { stream ->
+                val document =
+                    DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream)
+                val colors = document.getElementsByTagName("colors").item(0) as Element
+                val option =
+                    colors.options().single { it.getAttribute("name") == "SELECTION_BACKGROUND" }
+                "#" + option.getAttribute("value")
+            }
+        for (name in listOf("IcedAmericano.theme.json", "IcedAmericano-islands.theme.json")) {
+            val theme =
+                resource(name).bufferedReader().use {
+                    Json.parseToJsonElement(it.readText()).jsonObject
+                }
+            val field =
+                theme
+                    .getValue("colors")
+                    .jsonObject
+                    .at(theme.getValue("ui").jsonObject.at("TextField", "background"))
+            val separation = distance(selection, field)
+            assertTrue(
+                separation >= 0.07,
+                "$name selection $selection on text field $field has OKLab distance $separation",
+            )
+        }
+    }
+
+    @Test
+    fun addedFileStatusIsReadableAndDistinctFromText() {
+        val colors =
+            resource("IcedAmericano.xml").use { stream ->
+                val document =
+                    DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream)
+                (document.getElementsByTagName("colors").item(0) as Element).options().associate {
+                    it.getAttribute("name") to "#" + it.getAttribute("value")
+                }
+            }
+        val theme =
+            resource("IcedAmericano.theme.json").bufferedReader().use {
+                Json.parseToJsonElement(it.readText()).jsonObject.getValue("colors").jsonObject
+            }
+        val added = colors.getValue("FILESTATUS_ADDED")
+        for (surface in listOf("base", "mantle")) {
+            assertReadable(added, theme.at(surface), "added file status on $surface")
+        }
+        // Palette Green (0.176) was hard to tell apart from unchanged file names.
+        val separation = distance(added, theme.at("text"))
+        assertTrue(separation >= 0.2, "added file status $added is $separation from text")
     }
 
     @Test
