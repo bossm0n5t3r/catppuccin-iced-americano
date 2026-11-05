@@ -67,6 +67,8 @@ class CliTest {
         assertEquals(2, invoke())
         assertEquals(2, invoke("unknown"))
         assertEquals(2, invoke("validate", "one", "two"))
+        assertEquals(2, invoke("check-jetbrains", "--unknown"))
+        assertEquals(2, invoke("check-jetbrains", "--themes"))
         val directory = Files.createTempDirectory("missing-palette")
         try {
             assertEquals(2, invoke("validate", directory.resolve("missing.json").toString()))

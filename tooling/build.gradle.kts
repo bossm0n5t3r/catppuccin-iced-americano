@@ -77,6 +77,16 @@ val checkGhostty =
         )
     }
 
+val checkJetBrains =
+    tasks.register<JavaExec>("checkJetBrains") {
+        group = "verification"
+        description = "Check JetBrains theme colors and derived colors against the shared palette."
+        classpath = toolingClasspath
+        mainClass = toolingMainClass
+        workingDir(repositoryDirectory)
+        args("check-jetbrains", "--palette", palettePath.get())
+    }
+
 tasks.register<JavaExec>("generateSite") {
     group = "generation"
     description = "Generate the static palette website from the shared palette."
@@ -98,7 +108,7 @@ val checkSite =
 
 tasks.named<JavaExec>("run") { workingDir(repositoryDirectory) }
 
-tasks.named("check") { dependsOn(validatePalette, checkGhostty, checkSite) }
+tasks.named("check") { dependsOn(validatePalette, checkGhostty, checkJetBrains, checkSite) }
 
 tasks.named<Test>("test") { useJUnitPlatform() }
 

@@ -15,6 +15,13 @@ Run from the repository root with JDK 25:
 The first build downloads the IDE SDK. [GitHub Actions](../../.github/workflows/jetbrains.yaml)
 runs the tests, validates the plugin and uploads the ZIP as a build artifact.
 
+## Maintenance
+
+The theme files are edited by hand. Every color must be a palette color or a derived color
+registered in [`DerivedColors.kt`](../../tooling/src/main/kotlin/icedamericano/tooling/jetbrains/DerivedColors.kt),
+which records the Catppuccin for JetBrains formula (Blue accent). After changing the palette or a
+theme color, run `./gradlew :tooling:checkJetBrains` and update any reported values.
+
 ## Install
 
 1. Open **Settings -> Plugins -> gear -> Install Plugin from Disk…**.
