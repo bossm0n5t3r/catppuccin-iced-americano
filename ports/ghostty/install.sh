@@ -7,6 +7,8 @@ fail() {
   exit 2
 }
 
+# Match a literal leading tilde; quoting it is intentional.
+# shellcheck disable=SC2088
 expand_home() {
   case "$1" in
   '~') printf '%s\n' "$HOME" ;;
@@ -67,7 +69,7 @@ while [[ $# -gt 0 ]]; do
   [[ -n $config ]] || fail '--config requires a non-empty path'
 done
 
-script_directory=$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+script_directory=$(CDPATH='' cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 source="$script_directory/iced-americano"
 [[ -f $source ]] || fail "Missing generated theme: $source"
 config_home=$(expand_home "${XDG_CONFIG_HOME:-$HOME/.config}")
