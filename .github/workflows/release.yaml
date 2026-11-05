@@ -10,6 +10,8 @@ permissions:
 jobs:
   ci:
     uses: ./.github/workflows/ci.yaml
+    with:
+      upload-plugin: true
 
   release:
     needs: ci

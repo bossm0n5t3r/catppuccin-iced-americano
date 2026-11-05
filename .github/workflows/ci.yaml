@@ -9,6 +9,11 @@ on:
     paths-ignore: [ '**.md', 'LICENSE' ]
   workflow_dispatch:
   workflow_call:
+    inputs:
+      upload-plugin:
+        description: Upload the plugin ZIP for a calling job (the release workflow).
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -37,9 +42,12 @@ jobs:
       - name: Check and build
         run: ./gradlew ktfmtCheck :tooling:build :ports:jetbrains:check :ports:jetbrains:buildPlugin :ports:jetbrains:verifyPluginStructure
 
+      # Only the release workflow needs the ZIP; releases are the durable distribution.
       - name: Upload plugin ZIP
+        if: inputs.upload-plugin
         uses: actions/upload-artifact@v7
         with:
           name: catppuccin-iced-americano-jetbrains
           path: ports/jetbrains/build/distributions/*.zip
           if-no-files-found: error
+          retention-days: 1

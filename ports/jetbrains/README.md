@@ -13,8 +13,8 @@ Run from the repository root with JDK 25:
 ```
 
 The first build downloads the IDE SDK. [CI](../../.github/workflows/ci.yaml)
-runs the tests, validates the plugin and uploads the ZIP as a build artifact;
-the [release workflow](../../.github/workflows/release.yaml) publishes it for `v*` tags.
+runs the tests and validates the plugin; the [release workflow](../../.github/workflows/release.yaml)
+publishes the ZIP for `v*` tags.
 
 ## Maintenance
 
