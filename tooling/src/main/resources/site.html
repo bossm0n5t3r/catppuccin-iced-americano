@@ -207,6 +207,12 @@
             color: var(--subtext1);
         }
 
+        .port-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
         .palette {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
@@ -389,15 +395,23 @@
         <ul class="ports">
             <li class="port-card">
                 <h3>Ghostty</h3>
-                <p>Terminal theme with an install script for macOS and Linux.</p>
-                <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/ghostty/README.md">Ghostty
-                    installation guide ↗</a>
+                <p>Terminal theme file for macOS and Linux; no checkout required.</p>
+                <div class="port-links">
+                    <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest/download/iced-americano">Download
+                        theme file</a>
+                    <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/ghostty/README.md#install">Installation
+                        guide ↗</a>
+                </div>
             </li>
             <li class="port-card">
                 <h3>JetBrains</h3>
-                <p>IDE UI theme and editor color scheme, packaged as a plugin.</p>
-                <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/jetbrains/README.md">JetBrains
-                    build &amp; installation guide ↗</a>
+                <p>IDE UI theme and editor color scheme, packaged as a plugin for 2026.2 or later.</p>
+                <div class="port-links">
+                    <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest">Download plugin
+                        ZIP ↗</a>
+                    <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/ports/jetbrains/README.md#install">Installation
+                        guide ↗</a>
+                </div>
             </li>
         </ul>
     </section>

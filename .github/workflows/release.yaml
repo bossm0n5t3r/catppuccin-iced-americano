@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Run tests and verify ports
+        run: ./gradlew :tooling:test :tooling:checkGhostty :tooling:checkJetBrains :ports:jetbrains:check :ports:jetbrains:buildPlugin :ports:jetbrains:verifyPluginStructure
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The tag must match the plugin version, which names the ZIP.
+          zip="ports/jetbrains/build/distributions/catppuccin-iced-americano-jetbrains-${TAG#v}.zip"
+          if [[ ! -f $zip ]]; then
+            echo "::error::Tag $TAG does not match the plugin version; built: $(ls ports/jetbrains/build/distributions)"
+            exit 1
+          fi
+          gh release create "$TAG" "$zip" ports/ghostty/iced-americano \
+            --title "$TAG" --generate-notes --verify-tag

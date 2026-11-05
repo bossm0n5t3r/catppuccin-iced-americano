@@ -5,6 +5,24 @@ An unofficial Catppuccin Latte derivative, generated from
 
 ## Install
 
+### From a release (no checkout)
+
+Download the theme from the latest release into Ghostty's themes directory:
+
+```sh
+themes="${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes"
+mkdir -p "$themes"
+curl -fsSL -o "$themes/iced-americano.tmp" \
+  https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest/download/iced-americano &&
+  mv -f "$themes/iced-americano.tmp" "$themes/iced-americano"
+```
+
+Then add `theme = iced-americano` to your Ghostty config and reload. Re-run the commands to
+update. A failed download keeps the installed theme, and `mv` replaces a symlink left by the
+checkout installer instead of writing through it.
+
+### From a checkout
+
 From the repository root (Bash, macOS/Linux; no JDK or Gradle required):
 
 ```sh
@@ -22,8 +40,12 @@ To use a specific config file:
 ./ports/ghostty/install.sh --config /path/to/ghostty/config
 ```
 
+### Reload and uninstall
+
 Reload with **Cmd+Shift+,** on macOS or **Ctrl+Shift+,** on Linux (default bindings).
-To uninstall, remove the `theme = iced-americano` line and the theme symlink.
+To uninstall, remove the `theme = iced-americano` line and
+`${XDG_CONFIG_HOME:-$HOME/.config}/ghostty/themes/iced-americano` (a file for release
+installs, a symlink for checkout installs).
 
 ## Regenerate
 
