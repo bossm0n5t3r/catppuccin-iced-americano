@@ -10,16 +10,16 @@ split-divider-color = #CCD0DA
 selection-background = #D8DAE1
 
 palette = 0=#454D65
-palette = 1=#D20F39
-palette = 2=#006F80
+palette = 1=#B7191A
+palette = 2=#036B65
 palette = 3=#DF8E1D
 palette = 4=#1D62ED
 palette = 5=#EA76CB
 palette = 6=#179299
 palette = 7=#ACB0BE
 palette = 8=#686B81
-palette = 9=#D20F39
-palette = 10=#006F80
+palette = 9=#B7191A
+palette = 10=#036B65
 palette = 11=#DF8E1D
 palette = 12=#1D62ED
 palette = 13=#EA76CB

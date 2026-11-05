@@ -10,11 +10,11 @@
     "flamingo": "#DD7878",
     "pink": "#EA76CB",
     "mauve": "#7E0B97",
-    "red": "#D20F39",
+    "red": "#B7191A",
     "maroon": "#E64553",
     "peach": "#FE640B",
     "yellow": "#DF8E1D",
-    "green": "#006F80",
+    "green": "#036B65",
     "teal": "#179299",
     "sky": "#04A5E5",
     "sapphire": "#209FB5",
@@ -65,9 +65,13 @@
       "from": "#4C4F69",
       "reason": "Blue-black foreground for primary text"
     },
+    "red": {
+      "from": "#D20F39",
+      "reason": "Deeper red with improved text contrast across Latte surfaces and more balanced simulated distance from green; intended for use with explicit non-color cues"
+    },
     "green": {
       "from": "#40A02B",
-      "reason": "Blue-teal success accent intended for use with explicit non-color cues"
+      "reason": "Deep blue-teal success accent with improved text contrast across Latte surfaces; intended for use with explicit non-color cues"
     },
     "subtext1": {
       "from": "#5C5F77",

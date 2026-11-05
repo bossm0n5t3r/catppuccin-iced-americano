@@ -15,11 +15,11 @@
             --flamingo: #DD7878;
             --pink: #EA76CB;
             --mauve: #7E0B97;
-            --red: #D20F39;
+            --red: #B7191A;
             --maroon: #E64553;
             --peach: #FE640B;
             --yellow: #DF8E1D;
-            --green: #006F80;
+            --green: #036B65;
             --teal: #179299;
             --sky: #04A5E5;
             --sapphire: #209FB5;
@@ -472,8 +472,8 @@
                 <div class="swatch" style="background: var(--red)" aria-hidden="true"></div>
                 <div class="color-details">
                     <h3>Red</h3>
-                    <code>#D20F39</code>
-                    <span class="tag">Unchanged</span>
+                    <code>#B7191A</code>
+                    <span class="tag">Modified</span>
                 </div>
             </li>
             <li class="color-card">
@@ -504,7 +504,7 @@
                 <div class="swatch" style="background: var(--green)" aria-hidden="true"></div>
                 <div class="color-details">
                     <h3>Green</h3>
-                    <code>#006F80</code>
+                    <code>#036B65</code>
                     <span class="tag">Modified</span>
                 </div>
             </li>
@@ -650,7 +650,7 @@
     <section id="comparison" aria-labelledby="comparison-heading">
         <h2 id="comparison-heading">Latte, with a different voice.</h2>
         <!-- palette:change-count:start depth=2 -->
-        <p class="section-note">6 deliberate changes. Everything else retains the original Catppuccin Latte value.
+        <p class="section-note">7 deliberate changes. Everything else retains the original Catppuccin Latte value.
             Compare the original and current colors side by side.</p>
         <!-- palette:change-count:end -->
         <div class="table-scroll" role="region" aria-label="Palette comparison, scroll horizontally on small screens"
@@ -701,13 +701,15 @@
                         pairings require usage-specific review
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Red</th>
+                <tr class="modified">
+                    <th scope="row">Red<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #D20F39"
                               aria-hidden="true"></span><code>#D20F39</code></td>
                     <td><span class="mini-swatch" style="background: var(--red)"
-                              aria-hidden="true"></span><code>#D20F39</code></td>
-                    <td>Unchanged from Catppuccin Latte.</td>
+                              aria-hidden="true"></span><code>#B7191A</code></td>
+                    <td>Deeper red with improved text contrast across Latte surfaces and more balanced simulated
+                        distance from green; intended for use with explicit non-color cues
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">Maroon</th>
@@ -737,9 +739,11 @@
                     <th scope="row">Green<span class="tag">Modified</span></th>
                     <td><span class="mini-swatch" style="background: #40A02B"
                               aria-hidden="true"></span><code>#40A02B</code></td>
-                    <td><span class="mini-swatch" style="background: var(--green)" aria-hidden="true"></span><code>#006F80</code>
+                    <td><span class="mini-swatch" style="background: var(--green)" aria-hidden="true"></span><code>#036B65</code>
                     </td>
-                    <td>Blue-teal success accent intended for use with explicit non-color cues</td>
+                    <td>Deep blue-teal success accent with improved text contrast across Latte surfaces; intended for
+                        use with explicit non-color cues
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">Teal</th>
@@ -890,8 +894,8 @@
             <p>This experimental palette is designed with protanopia and deuteranopia distinctions in mind, but has not
                 undergone structured evaluation with color-vision-deficient users. It is not accessibility
                 certification.</p>
-            <p>Not every swatch is suitable for normal text. Blue, Subtext0 and Red fall below 4.5:1 on Mantle and
-                Crust; Green falls below 4.5:1 on Crust. Yellow, Pink and Teal ANSI text fall below 4.5:1 even on Base.
+            <p>Not every swatch is suitable for normal text. Blue and Subtext0 fall below 4.5:1 on Mantle and
+                Crust. Yellow, Pink and Teal ANSI text fall below 4.5:1 even on Base.
                 Use Text or Subtext1 on darker surfaces, and explicit labels or icons for status.</p>
             <p><a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano#usage-limits">Read usage limits</a> ·
                 <a href="https://github.com/bossm0n5t3r/catppuccin-iced-americano/blob/master/palette/iced-americano.json">View

@@ -49,7 +49,7 @@ class PaletteValidationTest {
     fun darkerSurfacesAreDiagnosticsOnly() {
         val result = validatePalette(parse(fixture()))
         assertTrue(result.passes)
-        for (foreground in listOf("blue", "subtext0", "red")) {
+        for (foreground in listOf("blue", "subtext0")) {
             assertTrue(
                 result.required
                     .single { it.foreground == foreground && it.background == "base" }
@@ -60,6 +60,21 @@ class PaletteValidationTest {
                     .single { it.foreground == foreground && it.background == "crust" }
                     .passes
             )
+        }
+    }
+
+    @Test
+    fun statusColorsMeetNormalTextContrastOnDarkerSurfaces() {
+        val result = validatePalette(parse(fixture()))
+        for (foreground in listOf("red", "green")) {
+            for (background in listOf("mantle", "crust")) {
+                assertTrue(
+                    result.diagnostics
+                        .single { it.foreground == foreground && it.background == background }
+                        .passes,
+                    "$foreground on $background",
+                )
+            }
         }
     }
 

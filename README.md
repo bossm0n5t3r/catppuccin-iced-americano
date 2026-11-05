@@ -26,7 +26,8 @@ guides, and usage limits. No images, JavaScript, external fonts or runtime depen
 | Text     | `#4C4F69`        | `#25334D`      |
 | Blue     | `#1E66F5`        | `#1D62ED`      |
 | Mauve    | `#8839EF`        | `#7E0B97`      |
-| Green    | `#40A02B`        | `#006F80`      |
+| Red      | `#D20F39`        | `#B7191A`      |
+| Green    | `#40A02B`        | `#036B65`      |
 | Subtext1 | `#5C5F77`        | `#454D65`      |
 | Subtext0 | `#6C6F85`        | `#686B81`      |
 | Base     | `#EFF1F5`        | `#EFF1F5`      |
@@ -65,8 +66,8 @@ Any future palette revision requires an explicit design decision against all thr
 
 - Contrast validation checks required normal-text pairs; other background
   combinations are diagnostic only. Passing does not certify the whole theme.
-- Blue, Subtext0 and Red fall below 4.5:1 on Mantle and Crust; Green falls below
-  4.5:1 on Crust. Use Text or Subtext1 for normal text on those surfaces.
+- Blue and Subtext0 fall below 4.5:1 on Mantle and Crust. Use Text or Subtext1
+  for normal text on those surfaces.
 - Yellow, Pink and Teal ANSI text fall below 4.5:1 even on Base. Use readable
   text with explicit labels and icons rather than color alone.
 - `semantics.cue` describes recommended cues that applications must provide;
