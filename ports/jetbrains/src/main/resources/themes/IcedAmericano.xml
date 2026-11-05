@@ -41,7 +41,7 @@
         <option name="FILESTATUS_SWITCHED" value="7287fd"/>
         <option name="FILESTATUS_UNKNOWN" value="fc7222"/>
         <option name="FILESTATUS_addedOutside" value="036b65"/>
-        <option name="FILESTATUS_changelistConflict" value="d4264b"/>
+        <option name="FILESTATUS_changelistConflict" value="bc2f2f"/>
         <option name="FILESTATUS_modifiedOutside" value="1d62ed"/>
         <option name="FOLDED_TEXT_BORDER_COLOR" value=""/>
         <option name="GUTTER_BACKGROUND" value="eff1f5"/>
@@ -173,7 +173,7 @@
         <option name="BLOCK_TERMINAL_CURRENT_SEARCH_ENTRY">
             <value>
                 <option name="FOREGROUND" value="25334d"/>
-                <option name="BACKGROUND" value="e6adbc"/>
+                <option name="BACKGROUND" value="deb0b3"/>
             </value>
         </option>
         <option name="BLOCK_TERMINAL_SEARCH_ENTRY">
@@ -628,7 +628,7 @@
         </option>
         <option name="CodeWithMe.USER_1_SELECTION">
             <value>
-                <option name="BACKGROUND" value="e9c4cf"/>
+                <option name="BACKGROUND" value="e4c6c9"/>
             </value>
         </option>
         <option name="CodeWithMe.USER_2_MARKER">
@@ -658,7 +658,7 @@
         </option>
         <option name="CodeWithMe.USER_4_SELECTION">
             <value>
-                <option name="BACKGROUND" value="8fbdc6"/>
+                <option name="BACKGROUND" value="90bcbb"/>
             </value>
         </option>
         <option name="CodeWithMe.USER_5_MARKER">
@@ -958,20 +958,20 @@
         </option>
         <option name="DIFF_CONFLICT">
             <value>
-                <option name="BACKGROUND" value="e8b9c6"/>
-                <option name="ERROR_STRIPE_COLOR" value="e9c4cf"/>
+                <option name="BACKGROUND" value="e1bbbf"/>
+                <option name="ERROR_STRIPE_COLOR" value="e4c6c9"/>
             </value>
         </option>
         <option name="DIFF_DELETED">
             <value>
-                <option name="BACKGROUND" value="e8b9c6"/>
-                <option name="ERROR_STRIPE_COLOR" value="e9c4cf"/>
+                <option name="BACKGROUND" value="e1bbbf"/>
+                <option name="ERROR_STRIPE_COLOR" value="e4c6c9"/>
             </value>
         </option>
         <option name="DIFF_INSERTED">
             <value>
-                <option name="BACKGROUND" value="b3d1d8"/>
-                <option name="ERROR_STRIPE_COLOR" value="bfd7de"/>
+                <option name="BACKGROUND" value="b4d0d1"/>
+                <option name="ERROR_STRIPE_COLOR" value="c0d6d8"/>
             </value>
         </option>
         <option name="DIFF_MODIFIED">
@@ -2926,7 +2926,7 @@
         <!-- Semantic Highlights -->
         <option name="RAINBOW_COLOR0">
             <value>
-                <option name="FOREGROUND" value="6a2545"/>
+                <option name="FOREGROUND" value="5f2938"/>
             </value>
         </option>
         <option name="RAINBOW_COLOR1">
@@ -2936,7 +2936,7 @@
         </option>
         <option name="RAINBOW_COLOR2">
             <value>
-                <option name="FOREGROUND" value="164b61"/>
+                <option name="FOREGROUND" value="174a56"/>
             </value>
         </option>
         <option name="RAINBOW_COLOR3">
