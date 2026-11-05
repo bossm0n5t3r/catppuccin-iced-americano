@@ -72,24 +72,30 @@ class GhosttyGeneratorTest {
                     "#454D65",
                     "#B7191A",
                     "#036B65",
-                    "#DF8E1D",
+                    "#8B6533",
                     "#1D62ED",
-                    "#EA76CB",
-                    "#179299",
+                    "#A936AC",
+                    "#317099",
                     "#ACB0BE",
                     "#686B81",
                     "#B7191A",
                     "#036B65",
-                    "#DF8E1D",
+                    "#8B6533",
                     "#1D62ED",
-                    "#EA76CB",
-                    "#179299",
+                    "#A936AC",
+                    "#317099",
                     "#BCC0CC",
                 )
                 .withIndex()
                 .associate { it.index to it.value },
             ansi,
         )
+        for (index in listOf(1, 2, 3, 4, 5, 6)) {
+            assertTrue(
+                contrast(ansi.getValue(index), scalars.getValue("background")) >= 4.5,
+                "Chromatic ANSI $index must reach AA normal-text contrast on the background.",
+            )
+        }
         val modified = withColor(root, "blue", JsonPrimitive("#aabbcc"))
         val (changedScalars, changedAnsi) = parsed(renderGhosttyTheme(modified))
         assertEquals(scalars["cursor-color"], changedScalars["cursor-color"])
@@ -97,6 +103,24 @@ class GhosttyGeneratorTest {
         assertEquals("#AABBCC", changedAnsi[12])
         assertEquals(ansi[1], changedAnsi[1])
         assertEquals(ansi[9], changedAnsi[9])
+    }
+
+    @Test
+    fun contrastMixesFollowPaletteTokens() {
+        val root =
+            withColor(
+                withColor(fixture(), "mauve", JsonPrimitive("#000000")),
+                "text",
+                JsonPrimitive("#FFFFFF"),
+            )
+        val ansi = parsed(renderGhosttyTheme(root)).second
+        // yellow #DF8E1D + 45% white, pink #EA76CB + 60% black, teal #179299 + 25% black.
+        assertEquals("#EDC183", ansi[3])
+        assertEquals("#5E2F51", ansi[5])
+        assertEquals("#116E73", ansi[6])
+        assertEquals(ansi[3], ansi[11])
+        assertEquals(ansi[5], ansi[13])
+        assertEquals(ansi[6], ansi[14])
     }
 
     @Test
@@ -163,7 +187,7 @@ class GhosttyGeneratorTest {
         val original = "existing output\n".toByteArray()
         Files.write(output, original)
         val invalid = mutableListOf(JsonNull, JsonObject(emptyMap()))
-        for (token in listOf("blue", "rosewater", "overlay2", "surface0")) {
+        for (token in listOf("blue", "rosewater", "overlay2", "surface0", "mauve")) {
             for (value in
                 listOf(
                     null,
