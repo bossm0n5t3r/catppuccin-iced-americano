@@ -225,7 +225,7 @@
       "border": "4,0,4,0",
       "hoverBackground": "hoverBackground",
       "rowHeight": "24",
-      "selectionInactiveBackground": "selectionInactiveBackground"
+      "selectionInactiveBackground": "selectionBackground"
     },
     "MainToolbar": {
       "Dropdown": {
