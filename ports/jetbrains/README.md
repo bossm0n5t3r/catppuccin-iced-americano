@@ -30,8 +30,11 @@ custom plugin repository to GitHub Releases.
 
 ### From the plugin repository (receives updates)
 
-1. Open **Settings -> Plugins -> gear -> Manage Plugin Repositories…** and add
+1. Open **Settings -> Plugins**, click the ⚙ icon to the right of the **Marketplace** and **Installed** tabs, and
+   choose **Manage Plugin Repositories…**. Add
    `https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest/download/updatePlugins.xml`.
+   Alternatively, add `idea.plugin.hosts=<that URL>` under **Help -> Edit Custom Properties…** and restart.
+   See [Custom plugin repositories](https://www.jetbrains.com/help/idea/managing-plugins.html#repos).
 2. Search for **Catppuccin Iced Americano** on the **Marketplace** tab and install it.
 
 If the plugin was installed from disk and the IDE reports that it cannot identify where it was installed from,
@@ -42,7 +45,8 @@ add the repository above, then choose it in that prompt.
 1. Download `catppuccin-iced-americano-jetbrains-<version>.zip` from the
    [latest release](https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest),
    or build it into `ports/jetbrains/build/distributions/`.
-2. Open **Settings -> Plugins -> gear -> Install Plugin from Disk…**, select the ZIP and restart if prompted.
+2. Open **Settings -> Plugins**, click the ⚙ icon to the right of the **Marketplace** and **Installed** tabs, choose
+   **Install Plugin from Disk…**, select the ZIP and restart if prompted.
 
 ### Choose the theme
 
