@@ -1,5 +1,12 @@
 package icedamericano.tooling.jetbrains
 
+import icedamericano.tooling.color.Vector3
+import icedamericano.tooling.color.contrast
+import icedamericano.tooling.color.hexToLinear
+import icedamericano.tooling.color.linearToHex
+import icedamericano.tooling.color.linearToOklab
+import icedamericano.tooling.color.oklabToLinear
+import kotlin.math.hypot
 import kotlin.math.roundToInt
 
 // Colors the JetBrains port computes from palette tokens, keyed by location. Formulas follow the
@@ -21,6 +28,33 @@ internal data class Opacity(val color: String, val opacity: Double) : Derivation
 
     override fun toString() = "$color with opacity $opacity"
 }
+
+// Keeps the color's OKLCH hue and lowers its lightness in 0.001 steps until it reaches the
+// contrast target on the background, reducing chroma in 0.002 steps while a step is out of gamut.
+internal data class Darken(val color: String, val on: String, val target: Double) : Derivation {
+    override fun resolve(colors: Map<String, String>): String {
+        val background = colors.getValue(on)
+        val start = linearToOklab(hexToLinear(colors.getValue(color)))
+        val chroma = hypot(start.y, start.z)
+        for (step in 0..1000) {
+            val lightness = start.x - step * 0.001
+            var scaled = chroma
+            var rgb = oklabToLinear(start.copy(x = lightness))
+            while (!rgb.inGamut() && scaled >= 0.01) {
+                scaled -= 0.002
+                val ratio = scaled / chroma
+                rgb = oklabToLinear(Vector3(lightness, start.y * ratio, start.z * ratio))
+            }
+            val candidate = linearToHex(rgb)
+            if (contrast(candidate, background) >= target) return candidate
+        }
+        error("$this cannot reach the contrast target")
+    }
+
+    override fun toString() = "darken($color to $target:1 on $on)"
+}
+
+private fun Vector3.inGamut() = listOf(x, y, z).all { it in -1e-4..1 + 1e-4 }
 
 private fun ratioByte(value: Float): Int = (value.coerceIn(0f, 1f) * 255f).roundToInt()
 
@@ -78,6 +112,11 @@ private fun rainbow(color: String) = Mix("text", color, 0.6)
 // separating them from Text and the Blue modified status more than palette Green or Teal.
 private val addedFile = Mix("green", "yellow", 0.75)
 
+// Port-specific: Catppuccin colors types Yellow, which falls below 4.5:1 on Base. Darkening it
+// along its own hue keeps more of its chroma than mixing with Text and separates types from
+// Mauve keywords and Blue functions; 4.8:1 leaves headroom above the 4.5:1 editor minimum.
+private val typeName = Darken("yellow", "base", 4.8)
+
 internal val editorSchemeDerivations: Map<String, Derivation> =
     mapOf(
         "colors.FILESTATUS_ADDED" to addedFile,
@@ -103,6 +142,9 @@ internal val editorSchemeDerivations: Map<String, Derivation> =
         "attributes.CodeWithMe.USER_4_SELECTION.BACKGROUND" to selection("green"),
         "attributes.CodeWithMe.USER_5_SELECTION.BACKGROUND" to selection("sapphire"),
         "attributes.CodeWithMe.USER_6_SELECTION.BACKGROUND" to selection("mauve"),
+        "attributes.DEFAULT_CLASS_NAME.FOREGROUND" to typeName,
+        "attributes.DEFAULT_CLASS_REFERENCE.FOREGROUND" to typeName,
+        "attributes.DEFAULT_INTERFACE_NAME.FOREGROUND" to typeName,
         "attributes.DIFF_CONFLICT.BACKGROUND" to Mix("red", "base", 0.25),
         "attributes.DIFF_CONFLICT.ERROR_STRIPE_COLOR" to Mix("red", "base", 0.2),
         "attributes.DIFF_DELETED.BACKGROUND" to Mix("red", "base", 0.25),

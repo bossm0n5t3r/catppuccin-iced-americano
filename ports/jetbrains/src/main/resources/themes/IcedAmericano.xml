@@ -776,12 +776,12 @@
         </option>
         <option name="DEFAULT_CLASS_NAME">
             <value>
-                <option name="FOREGROUND" value="7e0b97"/>
+                <option name="FOREGROUND" value="975c02"/>
             </value>
         </option>
         <option name="DEFAULT_CLASS_REFERENCE">
             <value>
-                <option name="FOREGROUND" value="7e0b97"/>
+                <option name="FOREGROUND" value="975c02"/>
             </value>
         </option>
         <option name="DEFAULT_COMMA">
@@ -851,7 +851,7 @@
         </option>
         <option name="DEFAULT_INTERFACE_NAME">
             <value>
-                <option name="FOREGROUND" value="7e0b97"/>
+                <option name="FOREGROUND" value="975c02"/>
             </value>
         </option>
         <option name="DEFAULT_INVALID_STRING_ESCAPE">
@@ -898,7 +898,7 @@
         </option>
         <option name="DEFAULT_PARAMETER">
             <value>
-                <option name="FOREGROUND" value="e64553"/>
+                <option name="FOREGROUND" value="25334d"/>
             </value>
         </option>
         <option name="DEFAULT_PARENTHS">
@@ -1426,7 +1426,7 @@
         </option>
         <option name="KOTLIN_CLOSURE_DEFAULT_PARAMETER">
             <value>
-                <option name="FOREGROUND" value="e64553"/>
+                <option name="FOREGROUND" value="25334d"/>
             </value>
         </option>
         <option name="KOTLIN_CONSTRUCTOR">

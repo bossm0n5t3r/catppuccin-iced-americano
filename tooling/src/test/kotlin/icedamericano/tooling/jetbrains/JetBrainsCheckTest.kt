@@ -1,9 +1,13 @@
 package icedamericano.tooling.jetbrains
 
+import icedamericano.tooling.color.contrast
+import icedamericano.tooling.color.hexToLinear
+import icedamericano.tooling.color.linearToOklab
 import icedamericano.tooling.palette.Palette
 import icedamericano.tooling.palette.parsePalette
 import java.nio.file.Files
 import java.nio.file.Path
+import kotlin.math.atan2
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -41,6 +45,22 @@ class JetBrainsCheckTest {
         assertEquals("#5f2938", whiskersMix("#25334D", "#B7191A", 0.6))
         assertEquals("#fc7222", whiskersMix("#FE640B", "#EFF1F5", 0.9))
         assertEquals("#1d62ed4d", Opacity("blue", 0.3).resolve(mapOf("blue" to "#1D62ED")))
+    }
+
+    private fun hue(color: String): Double {
+        val lab = linearToOklab(hexToLinear(color))
+        return Math.toDegrees(atan2(lab.z, lab.y))
+    }
+
+    @Test
+    fun darkenKeepsHueAndStopsAtContrastTarget() {
+        val colors = mapOf("yellow" to "#DF8E1D", "base" to "#EFF1F5")
+        val darkened = Darken("yellow", "base", 4.8).resolve(colors)
+        assertEquals("#975c02", darkened)
+        assertTrue(contrast(darkened, "#EFF1F5") >= 4.8)
+        // Only 8-bit rounding moves the OKLCH hue.
+        assertEquals(hue("#DF8E1D"), hue(darkened), 1.0)
+        assertEquals("#eff1f5", Darken("base", "yellow", 1.0).resolve(colors))
     }
 
     @Test

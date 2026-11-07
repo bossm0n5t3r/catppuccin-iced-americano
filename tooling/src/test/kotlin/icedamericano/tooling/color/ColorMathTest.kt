@@ -66,6 +66,14 @@ class ColorMathTest {
     }
 
     @Test
+    fun oklabRoundTripsToHex() {
+        for (color in listOf("#000000", "#ffffff", "#df8e1d", "#25334d", "#1d62ed")) {
+            assertEquals(color, linearToHex(oklabToLinear(linearToOklab(hexToLinear(color)))))
+        }
+        assertEquals("#ff0000", linearToHex(Vector3(1.2, -0.1, 0.0)))
+    }
+
+    @Test
     fun distances() {
         for (vision in Vision.entries) {
             assertEquals(0.0, distance("#123456", "#123456", vision), 0.0)

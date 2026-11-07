@@ -4,6 +4,7 @@ import kotlin.math.cbrt
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
+import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
 fun srgbToLinear(channel: Double): Double =
@@ -60,6 +61,27 @@ fun linearToOklab(rgb: Vector3): Vector3 {
         0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s,
     )
 }
+
+// The inverse conversion from the same source; the result may fall outside the sRGB gamut.
+fun oklabToLinear(lab: Vector3): Vector3 {
+    val l = (lab.x + 0.3963377774 * lab.y + 0.2158037573 * lab.z).pow(3)
+    val m = (lab.x - 0.1055613458 * lab.y - 0.0638541728 * lab.z).pow(3)
+    val s = (lab.x - 0.0894841775 * lab.y - 1.2914855480 * lab.z).pow(3)
+    return Vector3(
+        4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+        -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+        -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s,
+    )
+}
+
+fun linearToSrgb(channel: Double): Double =
+    if (channel <= 0.0031308) channel * 12.92 else 1.055 * channel.pow(1 / 2.4) - 0.055
+
+// Channels are clipped to the sRGB gamut before encoding.
+fun linearToHex(rgb: Vector3): String =
+    listOf(rgb.x, rgb.y, rgb.z).joinToString("", prefix = "#") { channel ->
+        "%02x".format((linearToSrgb(channel.coerceIn(0.0, 1.0)) * 255).roundToInt())
+    }
 
 fun distance(first: String, second: String, vision: Vision = Vision.NORMAL): Double {
     val a = linearToOklab(simulate(hexToLinear(first), vision))
