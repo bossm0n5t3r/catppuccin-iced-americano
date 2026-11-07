@@ -25,7 +25,19 @@ theme color, run `./gradlew :tooling:checkJetBrains` and update any reported val
 
 ## Install
 
-Requires a JetBrains IDE 2026.2 or later. Each `v*` tag publishes the plugin ZIP to GitHub Releases.
+Requires a JetBrains IDE 2026.2 or later. Each `v*` tag publishes the plugin ZIP and an `updatePlugins.xml`
+custom plugin repository to GitHub Releases.
+
+### From the plugin repository (receives updates)
+
+1. Open **Settings -> Plugins -> gear -> Manage Plugin Repositories…** and add
+   `https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest/download/updatePlugins.xml`.
+2. Search for **Catppuccin Iced Americano** on the **Marketplace** tab and install it.
+
+If the plugin was installed from disk and the IDE reports that it cannot identify where it was installed from,
+add the repository above, then choose it in that prompt.
+
+### From disk (no updates)
 
 1. Download `catppuccin-iced-americano-jetbrains-<version>.zip` from the
    [latest release](https://github.com/bossm0n5t3r/catppuccin-iced-americano/releases/latest),

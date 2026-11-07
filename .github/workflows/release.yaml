@@ -39,5 +39,25 @@ jobs:
             echo "::error::Tag $TAG does not match the plugin version; built: $(ls dist)"
             exit 1
           fi
-          gh release create "$TAG" "$zip" ports/ghostty/iced-americano \
+          # Custom plugin repository for IDE updates, served from releases/latest/download.
+          # The ID and since-build come from the built descriptor so they cannot drift.
+          jar=$(unzip -Z1 "$zip" | grep -m1 '/lib/.*\.jar$')
+          unzip -p "$zip" "$jar" > "$RUNNER_TEMP/plugin.jar"
+          descriptor=$(unzip -p "$RUNNER_TEMP/plugin.jar" META-INF/plugin.xml)
+          id=$(grep -o -m1 '<id>[^<]*</id>' <<<"$descriptor" | sed 's/<[^>]*>//g')
+          since=$(grep -o -m1 'since-build="[^"]*"' <<<"$descriptor" | cut -d'"' -f2)
+          if [[ -z $id || -z $since ]]; then
+            echo "::error::Plugin ID or since-build missing from $jar"
+            exit 1
+          fi
+          url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/${zip##*/}"
+          cat > dist/updatePlugins.xml <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <plugins>
+            <plugin id="${id}" url="${url}" version="${TAG#v}">
+              <idea-version since-build="${since}"/>
+            </plugin>
+          </plugins>
+          EOF
+          gh release create "$TAG" "$zip" dist/updatePlugins.xml ports/ghostty/iced-americano \
             --title "$TAG" --generate-notes --verify-tag
