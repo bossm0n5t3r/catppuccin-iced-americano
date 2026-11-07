@@ -1,6 +1,6 @@
 # Catppuccin Iced Americano
 
-Unofficial Catppuccin Latte derivative, **v0.1.0 / experimental**.
+Unofficial Catppuccin Latte derivative, **palette v0.1.0 / experimental**.
 
 > A developer theme built on Catppuccin Latte's soft, cool light palette, with
 > blue-black typography, vivid blue accents and a clearer text hierarchy, designed
@@ -56,6 +56,22 @@ Any future palette revision requires an explicit design decision against all thr
 3. **Consistency:** keep the palette usable across ports, update all implemented
    consumers together and assess implications for future ports.
 
+## Versioning
+
+The palette and releases are versioned separately.
+
+- **Palette version** (`version` in the [shared palette](palette/iced-americano.json)):
+  changes only when palette colors, semantics or other palette data change. The site and
+  the Ghostty theme header show it as the palette a release is built from.
+- **Release version** (`version` in [`gradle.properties`](gradle.properties)): changes
+  with every release, including port-only changes such as syntax role mappings or derived
+  colors. Every port shares it: it is the JetBrains plugin version and ZIP name, the
+  Ghostty theme header and the `v<version>` tag, and each release publishes every
+  implemented port. After changing it, run `./gradlew :tooling:generateGhostty`.
+- A palette change always ships in a new release, so the release version is never older
+  than the palette version. Before 1.0, a patch release fixes or adjusts existing output
+  and a minor release adds a port, a palette change or a notable new mapping.
+
 ## Ports
 
 - **Ghostty:** [installation, mapping and limitations](ports/ghostty/README.md).
@@ -91,7 +107,7 @@ Any future palette revision requires an explicit design decision against all thr
 | `./gradlew :tooling:generateSite`                                          | Update the palette website from the shared palette.                                                                                      |
 | `./gradlew :tooling:checkSite`                                             | Check the palette website without modifying it.                                                                                          |
 | `./ports/ghostty/install.sh`                                               | Install the Ghostty theme on macOS/Linux using Bash; no Gradle or JVM required.                                                          |
-| `./scripts/tag-release.sh [HH:mm:ss]`                                      | Tag `v<version>` from the plugin and palette version (optionally at today's HH:mm:ss) and push it to publish a release.                  |
+| `./scripts/tag-release.sh [HH:mm:ss]`                                      | Tag `v<version>` from the release (plugin) version (optionally at today's HH:mm:ss) and push it to publish a release.                    |
 | `./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json` | Override the palette path; relative paths resolve from the repository root.                                                              |
 | `./gradlew :tooling:run --args="validate palette/iced-americano.json"`     | Validate a palette through the CLI.                                                                                                      |
 | `./gradlew :tooling:run --args="cvd"`                                      | Print the CVD report through the CLI.                                                                                                    |

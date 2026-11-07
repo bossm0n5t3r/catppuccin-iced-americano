@@ -38,7 +38,7 @@ internal fun runCli(args: Array<String>, output: PrintWriter, error: PrintWriter
             else -> {
                 error.println(
                     "Usage: tooling <validate|cvd> [PATH_TO_PALETTE_JSON]\n" +
-                        "       tooling generate-ghostty [--palette PATH] [--output PATH] [--check]\n" +
+                        "       tooling generate-ghostty --release VERSION [--palette PATH] [--output PATH] [--check]\n" +
                         "       tooling check-jetbrains [--palette PATH] [--themes DIR]"
                 )
                 2

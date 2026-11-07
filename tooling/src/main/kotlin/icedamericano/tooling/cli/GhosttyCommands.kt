@@ -9,6 +9,7 @@ import java.nio.file.Path
 internal fun runGhosttyGeneration(args: Array<String>, error: PrintWriter): Int {
     var palette = Path.of("palette/iced-americano.json")
     var output = Path.of("ports/ghostty/iced-americano")
+    var release: String? = null
     var check = false
     var index = 1
     while (index < args.size) {
@@ -19,28 +20,34 @@ internal fun runGhosttyGeneration(args: Array<String>, error: PrintWriter): Int 
                 check = true
             }
             "--palette",
-            "--output" -> {
+            "--output",
+            "--release" -> {
                 val value =
                     if ('=' in argument) argument.substringAfter('=')
                     else {
                         index++
                         require(index < args.size && !args[index].startsWith("--")) {
-                            "$option requires a path"
+                            "$option requires a value"
                         }
                         args[index]
                     }
-                val path = Path.of(value)
-                if (option == "--palette") palette = path else output = path
+                when (option) {
+                    "--palette" -> palette = Path.of(value)
+                    "--output" -> output = Path.of(value)
+                    else -> release = value
+                }
             }
             else -> throw IllegalArgumentException("Unknown generation option: $argument")
         }
         index++
     }
+    // The release version lives in gradle.properties; the Gradle tasks pass it in.
+    val version = requireNotNull(release) { "--release is required" }
     if (!check) {
-        generateGhostty(palette, output)
+        generateGhostty(palette, output, version)
         return 0
     }
-    return when (checkGhostty(palette, output)) {
+    return when (checkGhostty(palette, output, version)) {
         GhosttyCheckResult.CURRENT -> 0
         GhosttyCheckResult.MISSING -> {
             error.println("Missing generated theme: $output")

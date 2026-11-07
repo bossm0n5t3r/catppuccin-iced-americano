@@ -6,8 +6,6 @@ plugins {
 
 group = "io.github.bossm0n5t3r.icedamericano"
 
-version = "0.1.0"
-
 repositories {
     mavenCentral()
     intellijPlatform { defaultRepositories() }

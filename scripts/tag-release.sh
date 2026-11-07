@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Create an annotated v<version> tag from the project version and push it to trigger the
+# Create an annotated v<version> tag from the release version and push it to trigger the
 # release workflow. An optional HH:mm:ss sets the tag time (today, local time zone).
 set -euo pipefail
 
@@ -40,13 +40,11 @@ done
 
 cd -- "$(git -C "$(dirname -- "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)"
 
-# The plugin version names the release ZIP; the palette version is shown on the site.
-plugin_version=$(sed -n 's/^version = "\(.*\)"$/\1/p' ports/jetbrains/build.gradle.kts)
-palette_version=$(sed -n 's/^  "version": "\(.*\)",$/\1/p' palette/iced-americano.json)
-[[ -n $plugin_version ]] || fail 'Could not read version from ports/jetbrains/build.gradle.kts'
-[[ $plugin_version == "$palette_version" ]] ||
-  fail "Version mismatch: plugin $plugin_version, palette ${palette_version:-<missing>}"
-tag="v$plugin_version"
+# The release version names the plugin ZIP and the Ghostty theme header. The palette
+# version is versioned separately and only changes with the palette itself.
+release_version=$(sed -n 's/^version=\(.*\)$/\1/p' gradle.properties)
+[[ -n $release_version ]] || fail 'Could not read version from gradle.properties'
+tag="v$release_version"
 
 [[ -z $(git status --porcelain) ]] || fail 'Working tree has uncommitted changes'
 branch=$(git symbolic-ref --quiet --short HEAD) || fail 'HEAD is detached'

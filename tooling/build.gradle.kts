@@ -28,6 +28,7 @@ tasks.processTestResources {
 
 val palettePath = providers.gradleProperty("palette").orElse("palette/iced-americano.json")
 val ghosttyOutputPath = providers.gradleProperty("output").orElse("ports/ghostty/iced-americano")
+val releaseVersion = providers.gradleProperty("version")
 val toolingMainClass = application.mainClass
 val toolingClasspath = sourceSets.main.get().runtimeClasspath
 val repositoryDirectory = rootProject.layout.projectDirectory
@@ -57,7 +58,15 @@ tasks.register<JavaExec>("generateGhostty") {
     classpath = toolingClasspath
     mainClass = toolingMainClass
     workingDir(repositoryDirectory)
-    args("generate-ghostty", "--palette", palettePath.get(), "--output", ghosttyOutputPath.get())
+    args(
+        "generate-ghostty",
+        "--palette",
+        palettePath.get(),
+        "--output",
+        ghosttyOutputPath.get(),
+        "--release",
+        releaseVersion.get(),
+    )
 }
 
 val checkGhostty =
@@ -73,6 +82,8 @@ val checkGhostty =
             palettePath.get(),
             "--output",
             ghosttyOutputPath.get(),
+            "--release",
+            releaseVersion.get(),
             "--check",
         )
     }

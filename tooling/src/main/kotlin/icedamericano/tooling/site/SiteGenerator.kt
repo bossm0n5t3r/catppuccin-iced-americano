@@ -97,7 +97,7 @@ internal fun renderSite(palette: Palette, html: String = siteTemplate()): String
         mapOf(
             "colors" to variables.toString().removeSuffix("\n"),
             "metadata" to
-                """<p class="eyebrow">Unofficial Catppuccin Latte derivative · v${palette.version.html()} · ${palette.status.html()}</p>""",
+                """<p class="eyebrow">Unofficial Catppuccin Latte derivative · palette v${palette.version.html()} · ${palette.status.html()}</p>""",
             "color-count" to
                 """
                 <p class="section-note">All ${palette.colors.size} colors, directly from the shared palette. Every chip has a token name and

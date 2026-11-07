@@ -18,8 +18,22 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import org.junit.jupiter.api.io.TempDir
 
+private const val RELEASE = "9.8.7"
+
 class GhosttyGeneratorTest {
     @TempDir lateinit var directory: Path
+
+    @Test
+    fun headerNamesReleaseAndPaletteVersions() {
+        val root = fixture()
+        val palette = (root.getValue("version") as JsonPrimitive).content
+        val header = renderGhosttyTheme(root, RELEASE).lines().take(3)
+        assertEquals("# Iced Americano release v$RELEASE.", header[1])
+        assertTrue(header[2].startsWith("# Production palette v$palette;"), header[2])
+        for (release in listOf("", "  ", "bad\rvalue", "bad\nvalue")) {
+            assertFailsWith<IllegalArgumentException> { renderGhosttyTheme(root, release) }
+        }
+    }
 
     private fun fixture(): JsonObject =
         Json.parseToJsonElement(
@@ -50,7 +64,7 @@ class GhosttyGeneratorTest {
     @Test
     fun productionRolesAndCentralPaletteChanges() {
         val root = fixture()
-        val (scalars, ansi) = parsed(renderGhosttyTheme(root))
+        val (scalars, ansi) = parsed(renderGhosttyTheme(root, RELEASE))
         assertEquals(
             mapOf(
                 "background" to "#EFF1F5",
@@ -97,7 +111,7 @@ class GhosttyGeneratorTest {
             )
         }
         val modified = withColor(root, "blue", JsonPrimitive("#aabbcc"))
-        val (changedScalars, changedAnsi) = parsed(renderGhosttyTheme(modified))
+        val (changedScalars, changedAnsi) = parsed(renderGhosttyTheme(modified, RELEASE))
         assertEquals(scalars["cursor-color"], changedScalars["cursor-color"])
         assertEquals("#AABBCC", changedAnsi[4])
         assertEquals("#AABBCC", changedAnsi[12])
@@ -113,7 +127,7 @@ class GhosttyGeneratorTest {
                 "text",
                 JsonPrimitive("#FFFFFF"),
             )
-        val ansi = parsed(renderGhosttyTheme(root)).second
+        val ansi = parsed(renderGhosttyTheme(root, RELEASE)).second
         // yellow #DF8E1D + 45% white, pink #EA76CB + 60% black, teal #179299 + 25% black.
         assertEquals("#EDC183", ansi[3])
         assertEquals("#5E2F51", ansi[5])
@@ -128,7 +142,7 @@ class GhosttyGeneratorTest {
         val source = directory.resolve("palette.json")
         val output = directory.resolve("theme")
         Files.writeString(source, fixture().toString())
-        generateGhostty(source, output)
+        generateGhostty(source, output, RELEASE)
         val ansi = parsed(Files.readString(output)).second
         assertNotEquals(ansi.getValue(0), ansi.getValue(15))
     }
@@ -141,7 +155,7 @@ class GhosttyGeneratorTest {
                 "base",
                 JsonPrimitive("#000101"),
             )
-        val (scalars, _) = parsed(renderGhosttyTheme(root))
+        val (scalars, _) = parsed(renderGhosttyTheme(root, RELEASE))
         assertEquals("#000202", scalars["selection-background"])
     }
 
@@ -157,7 +171,10 @@ class GhosttyGeneratorTest {
                     "semantics" to JsonNull,
                 )
             )
-        assertEquals(parsed(renderGhosttyTheme(root)), parsed(renderGhosttyTheme(minimal)))
+        assertEquals(
+            parsed(renderGhosttyTheme(root, RELEASE)),
+            parsed(renderGhosttyTheme(minimal, RELEASE)),
+        )
     }
 
     @Test
@@ -166,16 +183,16 @@ class GhosttyGeneratorTest {
         val output = directory.resolve("nested/theme")
         val root = fixture()
         Files.writeString(source, root.toString())
-        assertEquals(GhosttyCheckResult.MISSING, checkGhostty(source, output))
+        assertEquals(GhosttyCheckResult.MISSING, checkGhostty(source, output, RELEASE))
         assertFalse(Files.exists(output.parent))
-        generateGhostty(source, output)
-        assertEquals(GhosttyCheckResult.CURRENT, checkGhostty(source, output))
+        generateGhostty(source, output, RELEASE)
+        assertEquals(GhosttyCheckResult.CURRENT, checkGhostty(source, output, RELEASE))
         val previous = Files.readAllBytes(output)
         Files.writeString(source, withColor(root, "blue", JsonPrimitive("#112233")).toString())
-        assertEquals(GhosttyCheckResult.STALE, checkGhostty(source, output))
+        assertEquals(GhosttyCheckResult.STALE, checkGhostty(source, output, RELEASE))
         assertContentEquals(previous, Files.readAllBytes(output))
-        generateGhostty(source, output)
-        assertEquals(GhosttyCheckResult.CURRENT, checkGhostty(source, output))
+        generateGhostty(source, output, RELEASE)
+        assertEquals(GhosttyCheckResult.CURRENT, checkGhostty(source, output, RELEASE))
         assertEquals("#112233", parsed(Files.readString(output)).second[4])
     }
 
@@ -218,13 +235,13 @@ class GhosttyGeneratorTest {
         val contents = invalid.map { it.toString() } + "{"
         for (content in contents) {
             Files.writeString(source, content)
-            assertFailsWith<IllegalArgumentException> { generateGhostty(source, output) }
-            assertFailsWith<IllegalArgumentException> { checkGhostty(source, output) }
+            assertFailsWith<IllegalArgumentException> { generateGhostty(source, output, RELEASE) }
+            assertFailsWith<IllegalArgumentException> { checkGhostty(source, output, RELEASE) }
             assertContentEquals(original, Files.readAllBytes(output))
         }
         Files.delete(source)
-        assertFailsWith<IOException> { generateGhostty(source, output) }
-        assertFailsWith<IOException> { checkGhostty(source, output) }
+        assertFailsWith<IOException> { generateGhostty(source, output, RELEASE) }
+        assertFailsWith<IOException> { checkGhostty(source, output, RELEASE) }
         assertContentEquals(original, Files.readAllBytes(output))
     }
 
@@ -237,12 +254,12 @@ class GhosttyGeneratorTest {
         val symlink = Files.createSymbolicLink(directory.resolve("symlink"), source)
         for (output in
             listOf(source, directory.resolve(".").resolve("palette.json"), hardlink, symlink)) {
-            assertFailsWith<IllegalArgumentException> { generateGhostty(source, output) }
-            assertFailsWith<IllegalArgumentException> { checkGhostty(source, output) }
+            assertFailsWith<IllegalArgumentException> { generateGhostty(source, output, RELEASE) }
+            assertFailsWith<IllegalArgumentException> { checkGhostty(source, output, RELEASE) }
             assertContentEquals(original, Files.readAllBytes(source))
         }
-        assertFailsWith<IOException> { generateGhostty(source, directory) }
-        assertFailsWith<IOException> { checkGhostty(source, directory) }
+        assertFailsWith<IOException> { generateGhostty(source, directory, RELEASE) }
+        assertFailsWith<IOException> { checkGhostty(source, directory, RELEASE) }
         assertTrue(Files.isDirectory(directory))
         assertContentEquals(original, Files.readAllBytes(source))
     }
