@@ -134,6 +134,7 @@ class JetBrainsReadabilityTest {
                 "DEFAULT_CLASS_NAME",
                 "DEFAULT_CLASS_REFERENCE",
                 "DEFAULT_INTERFACE_NAME",
+                "DEFAULT_INSTANCE_FIELD",
                 "DEFAULT_PARAMETER",
                 "KOTLIN_CLOSURE_DEFAULT_PARAMETER",
                 "CONSOLE_SYSTEM_OUTPUT",

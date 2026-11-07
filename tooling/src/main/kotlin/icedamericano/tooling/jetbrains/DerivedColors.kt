@@ -117,6 +117,10 @@ private val addedFile = Mix("green", "yellow", 0.75)
 // Mauve keywords and Blue functions; 4.8:1 leaves headroom above the 4.5:1 editor minimum.
 private val typeName = Darken("yellow", "base", 4.8)
 
+// Port-specific: like IntelliJ's own schemes, color fields instead of Catppuccin's Maroon
+// parameters. Pink sits clear of Mauve keywords and gray unused code; 5.5:1 keeps it calm.
+private val instanceField = Darken("pink", "base", 5.5)
+
 internal val editorSchemeDerivations: Map<String, Derivation> =
     mapOf(
         "colors.FILESTATUS_ADDED" to addedFile,
@@ -145,6 +149,7 @@ internal val editorSchemeDerivations: Map<String, Derivation> =
         "attributes.DEFAULT_CLASS_NAME.FOREGROUND" to typeName,
         "attributes.DEFAULT_CLASS_REFERENCE.FOREGROUND" to typeName,
         "attributes.DEFAULT_INTERFACE_NAME.FOREGROUND" to typeName,
+        "attributes.DEFAULT_INSTANCE_FIELD.FOREGROUND" to instanceField,
         "attributes.DIFF_CONFLICT.BACKGROUND" to Mix("red", "base", 0.25),
         "attributes.DIFF_CONFLICT.ERROR_STRIPE_COLOR" to Mix("red", "base", 0.2),
         "attributes.DIFF_DELETED.BACKGROUND" to Mix("red", "base", 0.25),
