@@ -136,12 +136,37 @@ class JetBrainsReadabilityTest {
                 "DEFAULT_INTERFACE_NAME",
                 "DEFAULT_INSTANCE_FIELD",
                 "DEFAULT_PARAMETER",
+                "DEFAULT_REASSIGNED_LOCAL_VARIABLE",
+                "DEFAULT_REASSIGNED_PARAMETER",
                 "KOTLIN_CLOSURE_DEFAULT_PARAMETER",
                 "CONSOLE_SYSTEM_OUTPUT",
                 "CONSOLE_ERROR_OUTPUT",
                 "LOG_ERROR_OUTPUT",
             )) {
             assertReadable("#" + attributes.getValue(role).getValue("FOREGROUND"), background, role)
+        }
+    }
+
+    @Test
+    fun mutableBindingsAreUnderlinedVisibly() {
+        // Port-specific: like IntelliJ's Default scheme and unlike Catppuccin, underline `var` and
+        // reassigned bindings, since syntax italics are not allowed.
+        val attributes = attributes().associate { it.getAttribute("name") to it.values() }
+        val background = "#" + attributes.getValue("TEXT").getValue("BACKGROUND")
+        for (role in
+            listOf(
+                "KOTLIN_MUTABLE_VARIABLE",
+                "DEFAULT_REASSIGNED_LOCAL_VARIABLE",
+                "DEFAULT_REASSIGNED_PARAMETER",
+            )) {
+            val values = attributes.getValue(role)
+            assertEquals("1", values["EFFECT_TYPE"], "$role must be underlined")
+            val underline = "#" + values.getValue("EFFECT_COLOR")
+            val ratio = contrast(underline, background)
+            assertTrue(
+                ratio >= 3.0,
+                "$role underline $underline on $background has contrast $ratio",
+            )
         }
     }
 
