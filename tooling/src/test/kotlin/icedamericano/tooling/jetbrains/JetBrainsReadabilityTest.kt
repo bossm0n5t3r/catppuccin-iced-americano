@@ -22,6 +22,10 @@ class JetBrainsReadabilityTest {
         return value.jsonPrimitive.content
     }
 
+    // UI theme values are either hex colors or names of theme colors.
+    private fun JsonObject.resolveColor(value: String): String =
+        (if (value.startsWith("#")) value else getValue("colors").jsonObject.at(value)).lowercase()
+
     private fun assertReadable(foreground: String, background: String, role: String) {
         val ratio = contrast(foreground, background)
         assertTrue(ratio >= 4.5, "$role: $foreground on $background has contrast $ratio")
@@ -197,6 +201,65 @@ class JetBrainsReadabilityTest {
             assertTrue(
                 separation >= 0.07,
                 "$name selection $selection on text field $field has OKLab distance $separation",
+            )
+        }
+    }
+
+    @Test
+    fun rowStatesStandOutOnFileColors() {
+        // Project view and file lists such as Search Everywhere paint rows inside a scope such as
+        // Tests with a FileColor; the hovered or selected row replaces it with its state color,
+        // which must not blend with the scope, the panel, or the other state.
+        for (name in listOf("IcedAmericano.theme.json", "IcedAmericano-islands.theme.json")) {
+            val theme =
+                resource(name).bufferedReader().use {
+                    Json.parseToJsonElement(it.readText()).jsonObject
+                }
+            val ui = theme.getValue("ui").jsonObject
+            fun resolve(value: String) = theme.resolveColor(value)
+            val foreground = resolve(ui.at("*", "selectionForeground"))
+            val fileColors =
+                ui.getValue("FileColor").jsonObject.mapValues {
+                    resolve(it.value.jsonPrimitive.content)
+                }
+            for (component in listOf("Tree", "List")) {
+                val surfaces = fileColors + ("panel" to resolve(ui.at(component, "background")))
+                val hover = resolve(ui.at(component, "hoverBackground"))
+                val states =
+                    listOf("selectionBackground", "selectionInactiveBackground").associateWith {
+                        resolve(ui.at(component, it))
+                    } + ("hoverBackground" to hover)
+                for ((state, color) in states) {
+                    assertReadable(foreground, color, "$name $component $state")
+                    val others =
+                        if (state == "hoverBackground") surfaces
+                        else surfaces + ("hoverBackground" to hover)
+                    for ((surface, background) in others) {
+                        val separation = distance(color, background)
+                        assertTrue(
+                            separation >= 0.06,
+                            "$name $component $state $color on $surface $background has " +
+                                "OKLab distance $separation",
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    fun comboBoxSelectsRowsLikeLists() {
+        // Combo box popups are lists too, so their selected row should match other lists.
+        for (name in listOf("IcedAmericano.theme.json", "IcedAmericano-islands.theme.json")) {
+            val theme =
+                resource(name).bufferedReader().use {
+                    Json.parseToJsonElement(it.readText()).jsonObject
+                }
+            val ui = theme.getValue("ui").jsonObject
+            assertEquals(
+                theme.resolveColor(ui.at("List", "selectionBackground")),
+                theme.resolveColor(ui.at("ComboBox", "selectionBackground")),
+                "$name combo box selection",
             )
         }
     }

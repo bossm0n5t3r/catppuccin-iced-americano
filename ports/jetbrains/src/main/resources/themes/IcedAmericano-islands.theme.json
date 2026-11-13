@@ -43,6 +43,8 @@
     "hoverBackground": "#ccced7",
     "selectionBackground": "#d8dae1",
     "selectionInactiveBackground": "#eff1f5",
+    "rowSelectionBackground": "#a6bff2",
+    "rowHoverBackground": "#c1c4ce",
     "borderColor": "#dce0e8",
     "separatorColor": "#ccd0da",
     "searchMatchBackground": "#1d62ed4d",
@@ -140,7 +142,7 @@
       },
       "modifiedItemForeground": "accentColor",
       "nonEditableBackground": "secondaryBackground",
-      "selectionBackground": "selectionBackground"
+      "selectionBackground": "rowSelectionBackground"
     },
     "CompletionPopup": {
       "matchForeground": "accentColor",
@@ -223,9 +225,10 @@
       },
       "background": "panelBackground",
       "border": "4,0,4,0",
-      "hoverBackground": "hoverBackground",
+      "hoverBackground": "rowHoverBackground",
       "rowHeight": "24",
-      "selectionInactiveBackground": "selectionBackground"
+      "selectionBackground": "rowSelectionBackground",
+      "selectionInactiveBackground": "rowSelectionBackground"
     },
     "MainToolbar": {
       "Dropdown": {
@@ -462,11 +465,11 @@
       "background": "panelBackground",
       "border": "4,12,4,12",
       "foreground": "primaryForeground",
-      "hoverBackground": "hoverBackground",
+      "hoverBackground": "rowHoverBackground",
       "modifiedItemForeground": "accentColor",
       "rowHeight": 24,
-      "selectionBackground": "selectionBackground",
-      "selectionInactiveBackground": "selectionBackground"
+      "selectionBackground": "rowSelectionBackground",
+      "selectionInactiveBackground": "rowSelectionBackground"
     },
     "UiDesigner": {
       "Panel.background": "panelBackground",

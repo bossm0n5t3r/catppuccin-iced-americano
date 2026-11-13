@@ -83,6 +83,12 @@ internal val uiThemeDerivations: Map<String, Derivation> =
     mapOf(
         "colors.hoverBackground" to Mix("overlay2", "base", 0.3),
         "colors.selectionBackground" to Mix("overlay2", "base", 0.2),
+        // Port-specific: Catppuccin's neutral selection and hover share the lightness of the
+        // FileColor scope tints (0.019 and 0.038 OKLab from Green), so tree and list rows inside
+        // Tests lost their state. Tree, List and ComboBox rows use an accent selection over a
+        // darker neutral hover, which keeps scope, hover and selection apart.
+        "colors.rowSelectionBackground" to Mix("blue", "base", 0.35),
+        "colors.rowHoverBackground" to Mix("overlay2", "base", 0.4),
         "colors.searchMatchBackground" to Opacity("blue", 0.3),
         "colors.gitLogBackground" to Opacity("blue", 0.05),
         "colors.dragAndDropBackground" to Opacity("blue", 0.15),
