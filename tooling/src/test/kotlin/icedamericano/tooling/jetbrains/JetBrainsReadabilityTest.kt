@@ -120,6 +120,19 @@ class JetBrainsReadabilityTest {
             (document.getElementsByTagName("attributes").item(0) as Element).options()
         }
 
+    private fun editorColors(): Map<String, String> =
+        resource("IcedAmericano.xml").use { stream ->
+            val document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream)
+            (document.getElementsByTagName("colors").item(0) as Element).options().associate {
+                it.getAttribute("name") to "#" + it.getAttribute("value")
+            }
+        }
+
+    private fun themeColors(): JsonObject =
+        resource("IcedAmericano.theme.json").bufferedReader().use {
+            Json.parseToJsonElement(it.readText()).jsonObject.getValue("colors").jsonObject
+        }
+
     private fun Element.values(): Map<String, String> {
         val value = getElementsByTagName("value").item(0) as? Element ?: return emptyMap()
         return value.options().associate { it.getAttribute("name") to it.getAttribute("value") }
@@ -266,25 +279,27 @@ class JetBrainsReadabilityTest {
 
     @Test
     fun addedFileStatusIsReadableAndDistinctFromText() {
-        val colors =
-            resource("IcedAmericano.xml").use { stream ->
-                val document =
-                    DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream)
-                (document.getElementsByTagName("colors").item(0) as Element).options().associate {
-                    it.getAttribute("name") to "#" + it.getAttribute("value")
-                }
-            }
-        val theme =
-            resource("IcedAmericano.theme.json").bufferedReader().use {
-                Json.parseToJsonElement(it.readText()).jsonObject.getValue("colors").jsonObject
-            }
-        val added = colors.getValue("FILESTATUS_ADDED")
+        val theme = themeColors()
+        val added = editorColors().getValue("FILESTATUS_ADDED")
         for (surface in listOf("base", "mantle")) {
             assertReadable(added, theme.at(surface), "added file status on $surface")
         }
         // Palette Green (0.176) was hard to tell apart from unchanged file names.
         val separation = distance(added, theme.at("text"))
         assertTrue(separation >= 0.2, "added file status $added is $separation from text")
+    }
+
+    @Test
+    fun unknownFileStatusIsReadable() {
+        val theme = themeColors()
+        val unknown = editorColors().getValue("FILESTATUS_UNKNOWN")
+        for (surface in listOf("base", "mantle")) {
+            assertReadable(unknown, theme.at(surface), "unknown file status on $surface")
+        }
+        // The former Peach mix (1.5:1) vibrated against the blue row selection.
+        val selection = theme.at("rowSelectionBackground")
+        val ratio = contrast(unknown, selection)
+        assertTrue(ratio >= 2.5, "unknown file status $unknown on $selection has contrast $ratio")
     }
 
     @Test
