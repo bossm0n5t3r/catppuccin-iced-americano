@@ -8,7 +8,7 @@
         <option name="BLOCK_TERMINAL_BLOCK_BACKGROUND_START" value="e6e9ef"/>
         <option name="BLOCK_TERMINAL_DEFAULT_BACKGROUND" value="eff1f5"/>
         <option name="BLOCK_TERMINAL_DEFAULT_FOREGROUND" value="25334d"/>
-        <option name="BLOCK_TERMINAL_ERROR_BLOCK_STROKE_COLOR" value="b7191a"/>
+        <option name="BLOCK_TERMINAL_ERROR_BLOCK_STROKE_COLOR" value="e64553"/>
         <option name="BLOCK_TERMINAL_INACTIVE_SELECTED_BLOCK_BACKGROUND" value="bcc0cc"/>
         <option name="BLOCK_TERMINAL_INACTIVE_SELECTED_BLOCK_STROKE_COLOR" value="9ca0b0"/>
         <option name="BLOCK_TERMINAL_PROMPT_SEPARATOR_COLOR" value="bcc0cc"/>
