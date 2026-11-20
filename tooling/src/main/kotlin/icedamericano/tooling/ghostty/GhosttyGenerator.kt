@@ -14,7 +14,7 @@ private val scalarTokens =
         "background" to "base",
         "foreground" to "text",
         "cursor-color" to "rosewater",
-        "cursor-text" to "text",
+        "cursor-text" to "base",
         "selection-foreground" to "text",
         "split-divider-color" to "surface0",
     )

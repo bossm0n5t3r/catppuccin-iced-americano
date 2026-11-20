@@ -846,7 +846,7 @@
         </option>
         <option name="DEFAULT_INSTANCE_FIELD">
             <value>
-                <option name="FOREGROUND" value="a23389"/>
+                <option name="FOREGROUND" value="4a2c1d"/>
             </value>
         </option>
         <option name="DEFAULT_INTERFACE_NAME">
@@ -2870,7 +2870,7 @@
         </option>
         <option name="org.rust.MACRO_IDENTIFIER">
             <value>
-                <option name="FOREGROUND" value="dc8a78"/>
+                <option name="FOREGROUND" value="4a2c1d"/>
             </value>
         </option>
         <option name="org.rust.MACRO_META_VAR_IDENTIFIER">

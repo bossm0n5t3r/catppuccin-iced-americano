@@ -5,8 +5,8 @@
 # ANSI yellow, pink and teal are palette mixes for contrast.
 background = #EFF1F5
 foreground = #25334D
-cursor-color = #DC8A78
-cursor-text = #25334D
+cursor-color = #4A2C1D
+cursor-text = #EFF1F5
 selection-foreground = #25334D
 split-divider-color = #CCD0DA
 selection-background = #D8DAE1

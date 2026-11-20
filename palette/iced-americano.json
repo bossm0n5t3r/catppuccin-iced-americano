@@ -6,7 +6,7 @@
   "source": "https://catppuccin.com/palette/",
   "design": "Light Latte surfaces with blue-black typography, bright blue accents, and a stronger secondary text hierarchy. This palette has not undergone structured evaluation with color-vision-deficient users.",
   "colors": {
-    "rosewater": "#DC8A78",
+    "rosewater": "#4A2C1D",
     "flamingo": "#DD7878",
     "pink": "#EA76CB",
     "mauve": "#7E0B97",
@@ -80,6 +80,10 @@
     "subtext0": {
       "from": "#6C6F85",
       "reason": "Slightly stronger secondary text contrast"
+    },
+    "rosewater": {
+      "from": "#DC8A78",
+      "reason": "Dark roast coffee accent; the Latte value was nearly indistinguishable from flamingo under simulated protanopia and deuteranopia"
     }
   }
 }

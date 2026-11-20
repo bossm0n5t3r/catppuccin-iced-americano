@@ -69,8 +69,8 @@ class GhosttyGeneratorTest {
             mapOf(
                 "background" to "#EFF1F5",
                 "foreground" to "#25334D",
-                "cursor-color" to "#DC8A78",
-                "cursor-text" to "#25334D",
+                "cursor-color" to "#4A2C1D",
+                "cursor-text" to "#EFF1F5",
                 "selection-background" to "#D8DAE1",
                 "selection-foreground" to "#25334D",
                 "split-divider-color" to "#CCD0DA",

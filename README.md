@@ -21,18 +21,19 @@ guides, and usage limits. No images, JavaScript, external fonts or runtime depen
 
 ## Identity baseline and palette policy
 
-| Token    | Catppuccin Latte | Iced Americano |
-|----------|------------------|----------------|
-| Text     | `#4C4F69`        | `#25334D`      |
-| Blue     | `#1E66F5`        | `#1D62ED`      |
-| Mauve    | `#8839EF`        | `#7E0B97`      |
-| Red      | `#D20F39`        | `#B7191A`      |
-| Green    | `#40A02B`        | `#036B65`      |
-| Subtext1 | `#5C5F77`        | `#454D65`      |
-| Subtext0 | `#6C6F85`        | `#686B81`      |
-| Base     | `#EFF1F5`        | `#EFF1F5`      |
-| Mantle   | `#E6E9EF`        | `#E6E9EF`      |
-| Crust    | `#DCE0E8`        | `#DCE0E8`      |
+| Token     | Catppuccin Latte | Iced Americano |
+|-----------|------------------|----------------|
+| Text      | `#4C4F69`        | `#25334D`      |
+| Blue      | `#1E66F5`        | `#1D62ED`      |
+| Mauve     | `#8839EF`        | `#7E0B97`      |
+| Red       | `#D20F39`        | `#B7191A`      |
+| Green     | `#40A02B`        | `#036B65`      |
+| Subtext1  | `#5C5F77`        | `#454D65`      |
+| Subtext0  | `#6C6F85`        | `#686B81`      |
+| Rosewater | `#DC8A78`        | `#4A2C1D`      |
+| Base      | `#EFF1F5`        | `#EFF1F5`      |
+| Mantle    | `#E6E9EF`        | `#E6E9EF`      |
+| Crust     | `#DCE0E8`        | `#DCE0E8`      |
 
 Base, Mantle and Crust retain the Latte surfaces. Other palette colors are unchanged.
 Exact values and the original Latte colors are recorded in `colors` and

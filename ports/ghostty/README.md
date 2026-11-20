@@ -62,7 +62,7 @@ Reload Ghostty to apply the regenerated theme.
 
 - Mapping follows the Latte branch of the official
   [Catppuccin Ghostty template](https://github.com/catppuccin/ghostty/blob/main/ghostty.tera),
-  except cursor text uses `text`, and ANSI yellow, pink and teal (3/5/6 and
+  except cursor text uses `base`, and ANSI yellow, pink and teal (3/5/6 and
   11/13/14) are mixed with palette tokens for 4.5:1 contrast on `base`:
   yellow with 45% `text`, pink with 60% `mauve`, teal with 25% `mauve`.
   The shared palette keeps the Latte values. These adjustments target ANSI
