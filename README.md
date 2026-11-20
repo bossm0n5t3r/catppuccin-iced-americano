@@ -1,6 +1,6 @@
 # Catppuccin Iced Americano
 
-Unofficial Catppuccin Latte derivative, **palette v0.1.0 / experimental**.
+Unofficial Catppuccin Latte derivative, **palette v0.2.0 / experimental**.
 
 > A developer theme built on Catppuccin Latte's soft, cool light palette, with
 > blue-black typography, vivid blue accents and a clearer text hierarchy, designed
