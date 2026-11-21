@@ -36,4 +36,36 @@ intellijPlatform {
 
 tasks.buildPlugin { archiveBaseName.set("catppuccin-iced-americano-jetbrains") }
 
+// Plugin icon is generated from the site favicon so the two never drift apart.
+val faviconSvg = rootProject.layout.projectDirectory.file("docs/favicon.svg")
+val pluginIconDir = layout.buildDirectory.dir("generated/pluginIcon")
+
+val generatePluginIcon =
+    tasks.register("generatePluginIcon") {
+        description = "Generates META-INF/pluginIcon.svg from docs/favicon.svg."
+        val source = faviconSvg.asFile
+        val output = pluginIconDir.map { it.file("META-INF/pluginIcon.svg").asFile }
+        inputs.file(source)
+        outputs.dir(pluginIconDir)
+        doLast {
+            val svg = source.readText()
+            val rootTag = Regex("""<svg\b[^>]*>""").find(svg)
+            require(rootTag != null && "viewBox=\"0 0 32 32\"" in rootTag.value) {
+                "docs/favicon.svg must keep a 32x32 viewBox on its root <svg> tag"
+            }
+            // 40x40 logo size with a 2px margin around the 32x32 artwork.
+            val icon =
+                svg.replaceRange(
+                    rootTag.range,
+                    """<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-2 -2 36 36">""",
+                )
+            output.get().apply {
+                parentFile.mkdirs()
+                writeText(icon)
+            }
+        }
+    }
+
+sourceSets.main { resources.srcDir(generatePluginIcon) }
+
 ktfmt { kotlinLangStyle() }
