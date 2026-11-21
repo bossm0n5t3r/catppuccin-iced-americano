@@ -52,6 +52,17 @@ private val requiredTokens =
     (scalarTokens.map { it.second } + ansiTokens + ansiMixes.values.map { it.first } + "overlay2")
         .distinct()
 
+// Palette tokens read by ansiPalette.
+internal val ansiPaletteTokens = (ansiTokens + ansiMixes.values.map { it.first }).distinct()
+
+// The 16 ANSI colors, with the contrast mixes applied, from validated
+// uppercase #RRGGBB palette colors. Other ports reuse this mapping.
+internal fun ansiPalette(colors: Map<String, String>): List<String> = ansiTokens.map { token ->
+    val color = colors.getValue(token)
+    ansiMixes[token]?.let { (partner, percent) -> mix(color, colors.getValue(partner), percent) }
+        ?: color
+}
+
 // Mix two #RRGGBB colors in sRGB with the given percent of second, rounding
 // each channel half up.
 private fun mix(first: String, second: String, percent: Int): String =
@@ -109,12 +120,7 @@ internal fun renderGhosttyTheme(document: JsonElement, release: String): String 
         val selection = mix(validated.getValue("overlay2"), validated.getValue("base"), 80)
         append("selection-background = $selection\n")
         append('\n')
-        for ((index, token) in ansiTokens.withIndex()) {
-            val color = validated.getValue(token)
-            val ansi =
-                ansiMixes[token]?.let { (partner, percent) ->
-                    mix(color, validated.getValue(partner), percent)
-                } ?: color
+        for ((index, ansi) in ansiPalette(validated).withIndex()) {
             append("palette = $index=$ansi\n")
         }
     }

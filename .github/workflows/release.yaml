@@ -60,4 +60,5 @@ jobs:
           </plugins>
           EOF
           gh release create "$TAG" "$zip" dist/updatePlugins.xml ports/ghostty/iced-americano \
+            ports/oh-my-pi/iced-americano.json \
             --title "$TAG" --generate-notes --verify-tag

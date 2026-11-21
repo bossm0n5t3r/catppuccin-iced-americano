@@ -34,11 +34,13 @@ internal fun runCli(args: Array<String>, output: PrintWriter, error: PrintWriter
                 }
             }
             "generate-ghostty" -> runGhosttyGeneration(args, error)
+            "generate-oh-my-pi" -> runOhMyPiGeneration(args, error)
             "check-jetbrains" -> runJetBrainsCheck(args, error)
             else -> {
                 error.println(
                     "Usage: tooling <validate|cvd> [PATH_TO_PALETTE_JSON]\n" +
                         "       tooling generate-ghostty --release VERSION [--palette PATH] [--output PATH] [--check]\n" +
+                        "       tooling generate-oh-my-pi [--palette PATH] [--output PATH] [--check]\n" +
                         "       tooling check-jetbrains [--palette PATH] [--themes DIR]"
                 )
                 2

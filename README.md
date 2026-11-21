@@ -77,6 +77,7 @@ The palette and releases are versioned separately.
 
 - **Ghostty:** [installation, mapping and limitations](ports/ghostty/README.md).
 - **JetBrains:** [theme plugin structure, build and installation](ports/jetbrains/README.md).
+- **oh-my-pi:** [installation, mapping and limitations](ports/oh-my-pi/README.md).
 - **Zed:** not implemented.
 
 ## Usage limits
@@ -99,15 +100,18 @@ The palette and releases are versioned separately.
 | Command                                                                    | Description                                                                                                                              |
 |----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
 | `./gradlew ktfmtFormat`                                                    | Format Kotlin and Gradle Kotlin DSL using KotlinLang style. Run before checks.                                                           |
-| `./gradlew ktfmtCheck :tooling:build`                                      | Check formatting, build tooling, run tests, validate the palette, and check Ghostty, JetBrains and site output without modifying it.     |
+| `./gradlew ktfmtCheck :tooling:build`                                      | Check formatting, build tooling, run tests, validate the palette, and check Ghostty, oh-my-pi, JetBrains and site output read-only.      |
 | `./gradlew :tooling:validatePalette`                                       | Validate tokens, HEX values, and required contrast pairs against the unrounded 4.5:1 threshold. Diagnostic pairs do not fail validation. |
 | `./gradlew :tooling:reportCvd`                                             | Print CVD simulations and color-distance diagnostics; not accessibility certification.                                                   |
 | `./gradlew :tooling:generateGhostty`                                       | Regenerate the Ghostty theme from the shared palette.                                                                                    |
 | `./gradlew :tooling:checkGhostty`                                          | Check the generated Ghostty theme without modifying it.                                                                                  |
+| `./gradlew :tooling:generateOhMyPi`                                        | Regenerate the oh-my-pi theme from the shared palette.                                                                                   |
+| `./gradlew :tooling:checkOhMyPi`                                           | Check the generated oh-my-pi theme without modifying it.                                                                                 |
 | `./gradlew :tooling:checkJetBrains`                                        | Check JetBrains theme palette colors and registered derived colors without modifying them.                                               |
 | `./gradlew :tooling:generateSite`                                          | Update the palette website from the shared palette.                                                                                      |
 | `./gradlew :tooling:checkSite`                                             | Check the palette website without modifying it.                                                                                          |
 | `./ports/ghostty/install.sh`                                               | Install the Ghostty theme on macOS/Linux using Bash; no Gradle or JVM required.                                                          |
+| `./ports/oh-my-pi/install.sh`                                              | Install the oh-my-pi theme on macOS/Linux using Bash and `omp`; no Gradle or JVM required.                                               |
 | `./scripts/tag-release.sh [HH:mm:ss]`                                      | Tag `v<version>` from the release (plugin) version (optionally at today's HH:mm:ss) and push it to publish a release.                    |
 | `./gradlew :tooling:validatePalette -Ppalette=palette/iced-americano.json` | Override the palette path; relative paths resolve from the repository root.                                                              |
 | `./gradlew :tooling:run --args="validate palette/iced-americano.json"`     | Validate a palette through the CLI.                                                                                                      |

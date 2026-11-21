@@ -38,7 +38,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
 
-      # Formatting, tooling tests, palette validation, Ghostty/JetBrains/site checks and the plugin.
+      # Formatting, tooling tests, palette validation, Ghostty/oh-my-pi/JetBrains/site checks and the plugin.
       - name: Check and build
         run: ./gradlew ktfmtCheck :tooling:build :ports:jetbrains:check :ports:jetbrains:buildPlugin :ports:jetbrains:verifyPluginStructure
 

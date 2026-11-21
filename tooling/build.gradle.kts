@@ -21,6 +21,7 @@ sourceSets.test { resources.srcDir(rootProject.layout.projectDirectory.dir("pale
 
 tasks.processTestResources {
     from(rootProject.layout.projectDirectory.file("ports/ghostty/install.sh"))
+    from(rootProject.layout.projectDirectory.file("ports/oh-my-pi/install.sh")) { into("oh-my-pi") }
     from(rootProject.layout.projectDirectory.dir("ports/jetbrains/src/main/resources/themes")) {
         into("jetbrains")
     }
@@ -28,6 +29,7 @@ tasks.processTestResources {
 
 val palettePath = providers.gradleProperty("palette").orElse("palette/iced-americano.json")
 val ghosttyOutputPath = providers.gradleProperty("output").orElse("ports/ghostty/iced-americano")
+val ohMyPiOutputPath = "ports/oh-my-pi/iced-americano.json"
 val releaseVersion = providers.gradleProperty("version")
 val toolingMainClass = application.mainClass
 val toolingClasspath = sourceSets.main.get().runtimeClasspath
@@ -88,6 +90,32 @@ val checkGhostty =
         )
     }
 
+tasks.register<JavaExec>("generateOhMyPi") {
+    group = "generation"
+    description = "Generate the oh-my-pi theme from the shared palette."
+    classpath = toolingClasspath
+    mainClass = toolingMainClass
+    workingDir(repositoryDirectory)
+    args("generate-oh-my-pi", "--palette", palettePath.get(), "--output", ohMyPiOutputPath)
+}
+
+val checkOhMyPi =
+    tasks.register<JavaExec>("checkOhMyPi") {
+        group = "verification"
+        description = "Check the oh-my-pi theme is current without writing files."
+        classpath = toolingClasspath
+        mainClass = toolingMainClass
+        workingDir(repositoryDirectory)
+        args(
+            "generate-oh-my-pi",
+            "--palette",
+            palettePath.get(),
+            "--output",
+            ohMyPiOutputPath,
+            "--check",
+        )
+    }
+
 val checkJetBrains =
     tasks.register<JavaExec>("checkJetBrains") {
         group = "verification"
@@ -119,7 +147,9 @@ val checkSite =
 
 tasks.named<JavaExec>("run") { workingDir(repositoryDirectory) }
 
-tasks.named("check") { dependsOn(validatePalette, checkGhostty, checkJetBrains, checkSite) }
+tasks.named("check") {
+    dependsOn(validatePalette, checkGhostty, checkOhMyPi, checkJetBrains, checkSite)
+}
 
 tasks.named<Test>("test") { useJUnitPlatform() }
 
