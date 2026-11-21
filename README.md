@@ -16,8 +16,9 @@ The source of truth is [`palette/iced-americano.json`](palette/iced-americano.js
 
 **[Explore the palette website](https://bossm0n5t3r.github.io/catppuccin-iced-americano/)**
 CSS color chips for all 26 tokens, a side-by-side Catppuccin Latte comparison
-with labeled, highlighted modified rows, direct Ghostty and JetBrains installation
-guides, and usage limits. No images, JavaScript, external fonts or runtime dependencies.
+with labeled, highlighted modified rows, direct Ghostty, JetBrains and oh-my-pi
+installation guides, and usage limits.
+No images, JavaScript, external fonts or runtime dependencies.
 
 ## Identity baseline and palette policy
 
@@ -40,8 +41,8 @@ Exact values and the original Latte colors are recorded in `colors` and
 `changes_from_latte` in the [shared palette](palette/iced-americano.json).
 
 **Pause discretionary palette tuning at this baseline.** The next development focus
-is expressing this fixed palette consistently and readably in Ghostty, JetBrains and
-the future Zed port, not optimizing the colors themselves.
+is expressing this fixed palette consistently and readably in Ghostty, JetBrains,
+oh-my-pi and the future Zed port, not optimizing the colors themselves.
 
 The central palette defines the project's design identity. Adapting controls, syntax
 roles and derived highlights to an application is a port's responsibility. **Do not change the central palette to
@@ -89,7 +90,7 @@ The palette and releases are versioned separately.
 - Yellow, Pink and Teal ANSI text fall below 4.5:1 even on Base. Use readable
   text with explicit labels and icons rather than color alone.
 - `semantics.cue` describes recommended cues that applications must provide;
-  the palette and Ghostty theme do not implement them automatically.
+  the palette and the Ghostty and oh-my-pi themes do not implement them automatically.
 - CVD simulations are model estimates, not accessibility certification or a
   substitute for user evaluation. Check actual roles and pairings, including
   Mauve–Green and Red–Green, in each application. Review tradeoffs across pairs and
