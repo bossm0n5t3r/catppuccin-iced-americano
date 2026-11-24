@@ -303,6 +303,27 @@ class JetBrainsReadabilityTest {
     }
 
     @Test
+    fun conflictFileStatusesAreReadable() {
+        val theme = themeColors()
+        val colors = editorColors()
+        val selection = theme.at("rowSelectionBackground")
+        for (key in
+            listOf(
+                "FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_BOTH_CONFLICTS",
+                "FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_CONFLICTS",
+                "FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_PROPERTY_CONFLICTS",
+            )) {
+            val conflict = colors.getValue(key)
+            for (surface in listOf("base", "mantle")) {
+                assertReadable(conflict, theme.at(surface), "$key on $surface")
+            }
+            // Palette Peach (1.6:1) vibrated against the blue row selection.
+            val ratio = contrast(conflict, selection)
+            assertTrue(ratio >= 2.5, "$key $conflict on $selection has contrast $ratio")
+        }
+    }
+
+    @Test
     fun optionalSyntaxStylesDoNotIntroduceItalics() {
         for (attribute in attributes()) {
             val name = attribute.getAttribute("name")

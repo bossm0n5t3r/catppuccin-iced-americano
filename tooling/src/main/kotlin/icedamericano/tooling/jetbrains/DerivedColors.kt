@@ -120,8 +120,8 @@ private val addedFile = Mix("green", "yellow", 0.75)
 
 // Port-specific: Catppuccin's Peach mix sits at 2.4:1 on Base and 1.5:1 on the blue row
 // selection, where the near-complementary pair vibrates. Darkening Peach along its own hue keeps
-// unversioned files orange while reaching the same 4.5:1 on Mantle as added files.
-private val unknownFile = Darken("peach", "mantle", 4.5)
+// unversioned and merge-conflict files orange at the same 4.5:1 on Mantle as added files.
+private val peachFile = Darken("peach", "mantle", 4.5)
 
 // Port-specific: Catppuccin colors types Yellow, which falls below 4.5:1 on Base. Darkening it
 // along its own hue keeps more of its chroma than mixing with Text and separates types from
@@ -134,7 +134,10 @@ internal val editorSchemeDerivations: Map<String, Derivation> =
         "colors.FILESTATUS_COPIED" to addedFile,
         "colors.FILESTATUS_addedOutside" to addedFile,
         "colors.CARET_ROW_COLOR" to Mix("surface1", "base", 0.15),
-        "colors.FILESTATUS_UNKNOWN" to unknownFile,
+        "colors.FILESTATUS_UNKNOWN" to peachFile,
+        "colors.FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_BOTH_CONFLICTS" to peachFile,
+        "colors.FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_CONFLICTS" to peachFile,
+        "colors.FILESTATUS_IDEA_FILESTATUS_MERGED_WITH_PROPERTY_CONFLICTS" to peachFile,
         "colors.FILESTATUS_changelistConflict" to Mix("red", "base", 0.9),
         "colors.INLINE_REFACTORING_SETTINGS_DEFAULT" to Mix("surface1", "base", 0.65),
         "colors.INLINE_REFACTORING_SETTINGS_FOCUSED" to Mix("surface2", "base", 0.55),
