@@ -165,6 +165,50 @@ class JetBrainsReadabilityTest {
     }
 
     @Test
+    fun editorTextUsesReadableColors() {
+        // Palette accents below 4.5:1 on Base are for marks, stripes and tints, not text. Only
+        // intentionally faint roles and color swatches may paint text below 4.5:1.
+        val faint =
+            setOf(
+                "CONDITIONALLY_NOT_COMPILED",
+                "OC.CONDITIONALLY_NOT_COMPILED",
+                "CONSOLE_GRAY_OUTPUT",
+                "DART_UNRESOLVED_INSTANCE_MEMBER_REFERENCE",
+                "DEBUGGER_INLINED_VALUES",
+                "DEBUGGER_INLINED_VALUES_EXECUTION_LINE",
+                "DEFAULT_BRACES",
+                "DEFAULT_BRACKETS",
+                "DEFAULT_COMMA",
+                "DEFAULT_DOT",
+                "DEFAULT_PARENTHS",
+                "DEFAULT_SEMICOLON",
+                "DEFAULT_DOC_MARKUP",
+                "FOLDED_TEXT_ATTRIBUTES",
+                "INLAY_DEFAULT",
+                "INLAY_TEXT_WITHOUT_BACKGROUND",
+                "LOG_EXPIRED_ENTRY",
+                "MARKDOWN_BOLD_MARKER",
+                "MARKDOWN_ITALIC_MARKER",
+                "MARKDOWN_TABLE_SEPARATOR",
+                "NOT_USED_ELEMENT_ATTRIBUTES",
+            )
+        // Terminal swatches paint text and background alike; rainbow brackets and indent guides
+        // are decoration.
+        fun swatchOrDecoration(name: String) =
+            name.startsWith("BLOCK_TERMINAL_") ||
+                "_BRACKETS_RAINBOW_" in name ||
+                name.startsWith("INDENT_GUIDES_RAINBOW_")
+        val attributes = attributes().associate { it.getAttribute("name") to it.values() }
+        val base = "#" + attributes.getValue("TEXT").getValue("BACKGROUND")
+        for ((name, values) in attributes) {
+            if (name in faint || swatchOrDecoration(name)) continue
+            val foreground = values["FOREGROUND"]?.takeIf { it.isNotEmpty() } ?: continue
+            val background = values["BACKGROUND"]?.takeIf { it.isNotEmpty() }
+            assertReadable("#$foreground", background?.let { "#$it" } ?: base, name)
+        }
+    }
+
+    @Test
     fun mutableBindingsAreUnderlinedVisibly() {
         // Port-specific: like IntelliJ's Default scheme and unlike Catppuccin, underline `var` and
         // reassigned bindings, since syntax italics are not allowed.

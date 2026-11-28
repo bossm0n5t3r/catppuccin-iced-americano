@@ -123,10 +123,184 @@ private val addedFile = Mix("green", "yellow", 0.75)
 // unversioned and merge-conflict files orange at the same 4.5:1 on Mantle as added files.
 private val peachFile = Darken("peach", "mantle", 4.5)
 
-// Port-specific: Catppuccin colors types Yellow, which falls below 4.5:1 on Base. Darkening it
-// along its own hue keeps more of its chroma than mixing with Text and separates types from
-// Mauve keywords and Blue functions; 4.8:1 leaves headroom above the 4.5:1 editor minimum.
-private val typeName = Darken("yellow", "base", 4.8)
+// Port-specific: editor text uses only colors that reach 4.5:1 on Base. Palette Peach, Yellow,
+// Sky, Sapphire, Teal, Pink, Lavender, Maroon and Flamingo stay for marks, stripes and tints, and
+// their text roles move to a text color. Darkened to 4.5:1, Peach, Maroon and Flamingo merge into
+// Red and Teal and Sapphire into one cyan, so the editor keeps three darkened inks.
+
+// Caramel: Yellow darkened along its own hue. It keeps more chroma than mixing with Text and
+// separates types from Mauve keywords and Blue functions; 4.8:1 leaves headroom above 4.5:1.
+// Former Peach roles share it, since a 4.5:1 Peach is barely distinct from Red.
+private val caramel = Darken("yellow", "base", 4.8)
+
+// Cyan: Sky darkened to 4.5:1, for former Teal, Sky and Sapphire roles. Darkened Teal would sit
+// next to Green.
+private val cyan = Darken("sky", "base", 4.5)
+
+// Magenta: Pink darkened to 4.5:1, for escapes, regular expressions and ANSI magenta. Constants
+// and enum entries share it, apart from Caramel types, as IntelliJ colors them purple.
+private val magenta = Darken("pink", "base", 4.5)
+
+// Former Peach and Yellow text roles.
+private val caramelText =
+    listOf(
+        "BUILDOUT.SECTION_NAME",
+        "CLASS_REFERENCE",
+        "COFFEESCRIPT.CLASS_NAME",
+        "CONSOLE_YELLOW_OUTPUT",
+        "CONSTRUCTOR_CALL_ATTRIBUTES",
+        "CONSTRUCTOR_DECLARATION_ATTRIBUTES",
+        "CSS.PROPERTY_VALUE",
+        "CSS.TAG_NAME",
+        "CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTE_7",
+        "CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTE_9",
+        "CUSTOM_KEYWORD2_ATTRIBUTES",
+        "CUSTOM_KEYWORD3_ATTRIBUTES",
+        "Clojure Numbers",
+        "DEBUGGER_INLINED_VALUES_MODIFIED",
+        "EJS_OPEN_EQ",
+        "EJS_OPEN_EQ_EQ",
+        "EJS_OPEN_FILTER",
+        "GHERKIN_REGEXP_PARAMETER",
+        "GO_PACKAGE",
+        "HAML_CLASS",
+        "HAML_TAG",
+        "HTML_ATTRIBUTE_NAME",
+        "HTTP_REQUEST_INPUT_FILE",
+        "HTTP_REQUEST_VARIABLE_BRACES",
+        "JADE_TAG_CLASS",
+        "JS.DECORATOR",
+        "KOTLIN_NAMED_ARGUMENT",
+        "LOGCAT_WARNING_OUTPUT",
+        "LOG_WARNING_OUTPUT",
+        "MAGIC_MEMBER_ACCESS",
+        "MAKO.TAG",
+        "NG.BANANA_BINDING_ATTR_NAME",
+        "NG.EVENT_BINDING_ATTR_NAME",
+        "NG.PROPERTY_BINDING_ATTR_NAME",
+        "NG.TEMPLATE_BINDINGS_ATTR_NAME",
+        "OC.CLASS_REFERENCE",
+        "OC.MACRONAME",
+        "OC.MACRO_PARAMETER",
+        "OC.PROPERTY_ATTRIBUTE",
+        "OC.PROTOCOL_REFERENCE",
+        "OC.STRUCT_LIKE",
+        "OC.TYPEDEF",
+        "PHP_IDENTIFIER",
+        "PHP_INTERFACE",
+        "PHP_THIS_VAR",
+        "PROTOCOL_REFERENCE",
+        "PUPPET_CLASS",
+        "PUPPET_NUMBER",
+        "PY.ANNOTATION",
+        "PY.DECORATOR",
+        "PY.BUILTIN_NAME",
+        "REGEXP.BRACES",
+        "REGEXP.BRACKETS",
+        "REST.BOLD",
+        "REST.ITALIC",
+        "RHTML_EXPRESSION_END_ID",
+        "RHTML_EXPRESSION_START_ID",
+        "RHTML_OMIT_NEW_LINE_ID",
+        "RHTML_SCRIPTLET_END_ID",
+        "RHTML_SCRIPTLET_START_ID",
+        "ReSharper.ASP_NET_RUN_AT_ATTRIBUTE",
+        "ReSharper.FORMAT_STRING_ITEM",
+        "ReSharper.FORMAT_STRING_ITEM_2",
+        "ReSharper.MATCHED_FORMAT_STRING_ITEM",
+        "ReSharper.XAML_NAMESPACE_ALIAS",
+        "ReSharper.XAML_PROPERTY_IDENTIFIER",
+        "SLIM_CLASS",
+        "SLIM_TAG_ATTR_KEY",
+        "SPY-JS.PATH_LEVEL_TWO",
+        "SWIFT_ATTRIBUTE_ARGUMENT",
+        "Scala Predefined types",
+        "TAG_ATTR_KEY",
+        "TEMPLATE_VARIABLE_ATTRIBUTES",
+        "TODO_DEFAULT_ATTRIBUTES",
+        "TS.MODULE_NAME",
+        "TS.TYPE_PARAMETER",
+        "TYPE_PARAMETER_NAME_ATTRIBUTES",
+        "VELOCITY_DIRECTIVE",
+        "XML_NS_PREFIX",
+    )
+
+// Former Teal, Sky and Sapphire text roles.
+private val cyanText =
+    listOf(
+        "BASH.CONDITIONAL",
+        "BASH.FUNCTION_CALL",
+        "CONSOLE_CYAN_OUTPUT",
+        "CSS.CLASS_NAME",
+        "CSS.FUNCTION",
+        "CSS.PSEUDO",
+        "CSV_PLUGIN_COLUMN_COLORING_ATTRIBUTE_2",
+        "CUSTOM_KEYWORD4_ATTRIBUTES",
+        "DEFAULT_OPERATION_SIGN",
+        "DEFAULT_TAG",
+        "EJS_OPEN_EQ_GENERATOR",
+        "GO_TYPE_REFERENCE",
+        "HAML_ID",
+        "HAML_PARENTHS",
+        "HAML_WS_REMOVAL",
+        "JADE_TAG_ID",
+        "JUPYTER_SELECTED_CELL",
+        "KOTLIN_DYNAMIC_FUNCTION_CALL",
+        "KOTLIN_EXCLEXCL",
+        "LINE_PARTIAL_COVERAGE",
+        "LOGCAT_VERBOSE_OUTPUT",
+        "LOG_VERBOSE_OUTPUT",
+        "List/map to object conversion",
+        "MACRONAME",
+        "MARKDOWN_BLOCK_QUOTE_MARKER",
+        "MARKDOWN_HRULE",
+        "MARKDOWN_LIST_MARKER",
+        "MESSAGE_ARGUMENT",
+        "OC.ENUM_CONST",
+        "OC.MESSAGE_ARGUMENT",
+        "OC.METHOD_DECLARATION",
+        "OC.OVERLOADED_OPERATOR",
+        "PHP_NAMED_ARGUMENT",
+        "PUPPET_COMMA",
+        "PUPPET_DOT",
+        "PUPPET_ESCAPE_SEQUENCE",
+        "PUPPET_OPERATION_SIGN",
+        "PUPPET_SEMICOLON",
+        "PY.PREDEFINED_DEFINITION",
+        "PY.PREDEFINED_USAGE",
+        "RDOC_URL",
+        "ReShaper.ENUM_IDENTIFIER",
+        "SLIM_FILTER",
+        "SLIM_PARENTHS",
+        "VELOCITY_REFERENCE",
+        "com.plan9.INSTRUCTION",
+        "com.plan9.PSEUDO_INSTRUCTION",
+        "org.rust.MACRO",
+    )
+
+// Former Pink text roles, constants and enum entries.
+private val magentaText =
+    listOf(
+        "DART_ENUM_CONSTANT",
+        "DEFAULT_CONSTANT",
+        "ENUM_CONST",
+        "KOTLIN_ENUM_ENTRY",
+        "Static property reference ID",
+        "CONSOLE_MAGENTA_OUTPUT",
+        "DEFAULT_VALID_STRING_ESCAPE",
+        "JS.REGEXP",
+        "LOGCAT_FILTER_REGEX_KVALUE",
+        "org.rust.MACRO_DOLLAR",
+        "org.rust.MACRO_META_VAR_IDENTIFIER",
+    )
+
+// Former Lavender, Maroon and Flamingo text roles use palette Blue and Rosewater directly, so they
+// need no derivation: Lavender darkened to 4.5:1 is barely distinct from Blue, and Rosewater
+// already colors instance fields, the most common former Maroon role.
+
+private fun foregrounds(names: List<String>, derivation: Derivation) = names.map {
+    "attributes.$it.FOREGROUND" to derivation
+}
 
 internal val editorSchemeDerivations: Map<String, Derivation> =
     mapOf(
@@ -156,9 +330,9 @@ internal val editorSchemeDerivations: Map<String, Derivation> =
         "attributes.CodeWithMe.USER_4_SELECTION.BACKGROUND" to selection("green"),
         "attributes.CodeWithMe.USER_5_SELECTION.BACKGROUND" to selection("sapphire"),
         "attributes.CodeWithMe.USER_6_SELECTION.BACKGROUND" to selection("mauve"),
-        "attributes.DEFAULT_CLASS_NAME.FOREGROUND" to typeName,
-        "attributes.DEFAULT_CLASS_REFERENCE.FOREGROUND" to typeName,
-        "attributes.DEFAULT_INTERFACE_NAME.FOREGROUND" to typeName,
+        "attributes.DEFAULT_CLASS_NAME.FOREGROUND" to caramel,
+        "attributes.DEFAULT_CLASS_REFERENCE.FOREGROUND" to caramel,
+        "attributes.DEFAULT_INTERFACE_NAME.FOREGROUND" to caramel,
         "attributes.DIFF_CONFLICT.BACKGROUND" to Mix("red", "base", 0.25),
         "attributes.DIFF_CONFLICT.ERROR_STRIPE_COLOR" to Mix("red", "base", 0.2),
         "attributes.DIFF_DELETED.BACKGROUND" to Mix("red", "base", 0.25),
@@ -177,4 +351,7 @@ internal val editorSchemeDerivations: Map<String, Derivation> =
         "attributes.RAINBOW_COLOR2.FOREGROUND" to rainbow("green"),
         "attributes.RAINBOW_COLOR3.FOREGROUND" to rainbow("blue"),
         "attributes.RAINBOW_COLOR4.FOREGROUND" to rainbow("mauve"),
-    )
+    ) +
+        foregrounds(caramelText, caramel) +
+        foregrounds(cyanText, cyan) +
+        foregrounds(magentaText, magenta)
